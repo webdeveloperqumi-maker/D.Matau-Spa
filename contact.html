@@ -1,151 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contact D. Matau Spa to enquire about mobile massage services and availability.">
-    <title>Contact Us | D. Matau Spa</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — D. Matau Spa</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
 
-<header class="site-header">
-    <a href="index.html" class="logo">D. Matau <span>Spa</span></a>
-    <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="index.html" aria-label="D. Matau Spa">
+        <img src="images/logo.png" alt="">
+      </a>
 
-    <nav class="navigation">
-        <a href="index.html">Home</a>
-        <a href="booking.html">Book Your Session</a>
-        <a href="about.html">About</a>
-        <a href="contact.html" class="active">Contact</a>
-        <a href="cancellation.html">Cancellation Policy</a>
-    </nav>
-</header>
+      <button class="nav-toggle" type="button"
+        aria-expanded="false" aria-label="Open navigation">
+        ☰
+      </button>
 
-<main>
-    <section class="page-heading">
-        <p class="eyebrow">WE WOULD LOVE TO HEAR FROM YOU</p>
-        <h1>Contact D. Matau Spa</h1>
-        <p>Relax · Rejuvenate · Restore</p>
-    </section>
-
-    <section class="content-container">
-        <div class="two-column">
-            <div class="text-content">
-                <h2>Let's Arrange Your Spa Experience</h2>
-
-                <p>
-                    Not sure which service is right for you? Call us on
-                    <strong>084 655 8531</strong> to arrange your mobile massage.
-                </p>
-
-                <p>
-                    Dear valued clients, please note that our home-based
-                    massage services cannot be booked online. To arrange
-                    your appointment, kindly contact us directly for bookings
-                    and availability.
-                </p>
-
-                <ul class="contact-list">
-                    <li>
-                        <strong>Phone:</strong>
-                        <a href="tel:+27846558531">084 655 8531</a>
-                    </li>
-                    <li>
-                        <strong>WhatsApp:</strong>
-                        084 655 8531
-                    </li>
-                    <li>
-                        <strong>TikTok:</strong>
-                        @d.mataumobilespa
-                    </li>
-                </ul>
-
-                <button
-                    type="button"
-                    class="glass-button primary"
-                    data-whatsapp
-                    data-message="Hello D. Matau Spa, I would like to enquire about your mobile massage services and appointment availability.">
-                    WhatsApp Us
-                </button>
-
-                <p style="margin-top: 18px;">
-                    <a
-                        class="text-link"
-                        href="https://www.tiktok.com/@d.mataumobilespa"
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        Follow us on TikTok →
-                    </a>
-                </p>
-            </div>
-
-            <div class="image-placeholder" style="min-height: 400px;">
-                <!-- ADD A PICTURE OF THE SPA BED HERE -->
-                <span>Spa Bed Picture</span>
-            </div>
-        </div>
-    </section>
-
-    <section class="content-container">
-        <div class="two-column">
-            <div class="image-placeholder" style="min-height: 320px;">
-                <!-- ADD A MASSAGE PICTURE HERE -->
-                <span>Massage Picture</span>
-            </div>
-
-            <div>
-                <p class="eyebrow">PLAN YOUR VISIT</p>
-                <h2>Opening Hours</h2>
-
-                <table class="hours-table">
-                    <tbody>
-                        <tr>
-                            <td>Monday</td>
-                            <td>10 am – 8 pm</td>
-                        </tr>
-                        <tr>
-                            <td>Tuesday</td>
-                            <td>10 am – 6 pm</td>
-                        </tr>
-                        <tr>
-                            <td>Wednesday</td>
-                            <td>10 am – 6 pm</td>
-                        </tr>
-                        <tr>
-                            <td>Thursday</td>
-                            <td>10 am – 8 pm</td>
-                        </tr>
-                        <tr>
-                            <td>Friday</td>
-                            <td>10 am – 8 pm</td>
-                        </tr>
-                        <tr>
-                            <td>Saturday</td>
-                            <td>10 am – 3 pm</td>
-                        </tr>
-                        <tr>
-                            <td>Sunday</td>
-                            <td>Closed</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-</main>
-
-<footer class="site-footer">
-    <a href="index.html" class="footer-logo">D. Matau Spa</a>
-    <p>Relax · Rejuvenate · Restore</p>
-    <p>© <span class="current-year"></span> D. Matau Spa. All rights reserved.</p>
-    <div class="footer-links">
-        <a href="booking.html">Book</a>
-        <a href="about.html">About</a>
-        <a href="cancellation.html">Cancellation Policy</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="index.html">HOME</a>
+        <a href="booking.html">BOOK YOUR SESSION</a>
+        <a href="about.html">ABOUT</a>
+        <a href="contact.html" aria-current="page">CONTACT</a>
+        <a href="cancellation.html">CANCELLATION POLICY</a>
+      </nav>
     </div>
-</footer>
+  </header>
+
+  <main class="container section">
+
+    <h1>Contact.</h1>
+
+    <h2>Relax - Rejuvenate - Restore</h2>
+
+    <section class="two-column section">
+
+      <div class="photo-frame">
+        <img src="images/spa-bed.jpg" alt="">
+      </div>
+
+      <div class="photo-frame">
+        <img src="images/massage.jpg" alt="">
+      </div>
+
+    </section>
+
+    <section class="section">
+      <h2>Not sure which Service is right for you?</h2>
+
+      <p>
+        Call us on 084 655 8531 to arrange your mobile massage.
+      </p>
+
+      <p>
+        Dear valued clients, please note that our Home-Based Massage
+        services cannot be booked online. To arrange your appointment,
+        kindly contact us directly for bookings and availability.
+      </p>
+
+      <a class="btn"
+        href="https://wa.me/27846558531"
+        target="_blank"
+        rel="noopener noreferrer">WhatsApp us</a>
+    </section>
+
+    <section class="section">
+      <h2>d.mataumobilespa</h2>
+
+      <a class="btn btn-light"
+        href="https://www.tiktok.com/@d.mataumobilespa"
+        target="_blank"
+        rel="noopener noreferrer">Follow TikTok</a>
+    </section>
+
+    <section class="section">
+      <h2>Hours:</h2>
+
+      <ul class="hours-list">
+        <li>
+          <span>Monday / Thursday / Friday</span>
+          <span>10 am - 8 pm</span>
+        </li>
+
+        <li>
+          <span>Tuesday / Wednesday</span>
+          <span>10 am - 6 pm</span>
+        </li>
+
+        <li>
+          <span>Saturday</span>
+          <span>10 am - 3 pm</span>
+        </li>
+
+        <li>
+          <span>Sunday</span>
+          <span>closed</span>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>D. Matau Spa</p>
+  </footer>
 
 </body>
 </html>
