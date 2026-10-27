@@ -1,47 +1,46 @@
-/* ==========================================
-   D. MATAU SPA — COMPLETE JAVASCRIPT
-   ========================================== */
+/* =========================================
+   D. MATAU SPA — WORKING WEBSITE JAVASCRIPT
+   ========================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
     setupMobileNavigation();
+    setupServices();
+    setupAddOns();
     setupCalendar();
     setupBookingForm();
-    setupServiceSelection();
 });
 
 
-/* ==========================================
-   1. SPA DETAILS AND PRICES
-   ========================================== */
+/* =========================================
+   1. SETTINGS AND PRICES
+   ========================================= */
 
 const WHATSAPP_NUMBER = "27846558531";
 
 const SERVICES = {
-    "Deep Tissue Massage": {
-        price: 1000,
-        duration: "60 minutes"
+    deep: {
+        name: "Deep Tissue Massage",
+        price: 1000
     },
 
-    "Swedish Massage": {
-        price: 800,
-        duration: "60 minutes"
+    swedish: {
+        name: "Swedish massage",
+        price: 800
     },
 
-    "Aromatherapy Massage": {
-        price: 850,
-        duration: "60 minutes"
+    aroma: {
+        name: "Aromatherapy massage",
+        price: 850
     },
 
-    "Reflexology Massage": {
-        price: 1200,
-        duration: "60 minutes"
+    reflexology: {
+        name: "Reflexology massage",
+        price: 1200
     }
 };
 
-const ADD_ONS = {
-    "Hot Stones": 150,
-    "Foot Scrubbing": 200
-};
+const HOT_STONES_PRICE = 150;
+const FOOT_SCRUB_PRICE = 200;
 
 const APPOINTMENT_TIMES = [
     "10:00 am",
@@ -55,320 +54,236 @@ const APPOINTMENT_TIMES = [
 ];
 
 let selectedService = "";
-let selectedAddOns = [];
 let selectedDate = "";
 let selectedTime = "";
 let appointmentSelected = false;
 
 
-/* ==========================================
+/* =========================================
    2. MOBILE NAVIGATION
-   ========================================== */
+   ========================================= */
 
 function setupMobileNavigation() {
-    const menuButton = document.querySelector(
-        "#menu-toggle, .menu-toggle, .nav-toggle"
-    );
-
-    const navigation = document.querySelector(
-        "#nav-links, .nav-links, .navigation-links"
-    );
+    const menuButton = document.querySelector(".nav-toggle");
+    const navigation = document.querySelector(".site-nav");
 
     if (!menuButton || !navigation) {
         return;
     }
 
     menuButton.addEventListener("click", () => {
-        navigation.classList.toggle("active");
-
-        const isExpanded =
-            navigation.classList.contains("active");
+        const isOpen = navigation.classList.toggle("is-open");
 
         menuButton.setAttribute(
             "aria-expanded",
-            String(isExpanded)
+            String(isOpen)
+        );
+
+        menuButton.setAttribute(
+            "aria-label",
+            isOpen ? "Close navigation" : "Open navigation"
         );
     });
 
     navigation.querySelectorAll("a").forEach(link => {
         link.addEventListener("click", () => {
-            navigation.classList.remove("active");
+            navigation.classList.remove("is-open");
+
             menuButton.setAttribute("aria-expanded", "false");
+            menuButton.setAttribute("aria-label", "Open navigation");
         });
     });
 }
 
 
-/* ==========================================
-   3. SERVICE SELECTION
-   ========================================== */
+/* =========================================
+   3. SELECT A MASSAGE
+   ========================================= */
 
-function setupServiceSelection() {
+function setupServices() {
+    const serviceDropdown = document.getElementById("service");
+
     const serviceButtons = document.querySelectorAll(
-        "[data-service], .service-select, .select-service"
+        ".service-select"
     );
 
+    if (serviceDropdown) {
+        serviceDropdown.addEventListener("change", () => {
+            chooseService(serviceDropdown.value);
+        });
+    }
+
     serviceButtons.forEach(button => {
-        button.addEventListener("click", event => {
-            event.preventDefault();
+        button.addEventListener("click", () => {
+            const serviceKey = button.dataset.service;
 
-            let serviceName =
-                button.dataset.service ||
-                button.closest("[data-service]")?.dataset.service ||
-                button.dataset.name ||
-                "";
-
-            if (!serviceName) {
-                const card = button.closest(
-                    ".service-card, .service-item, .service"
-                );
-
-                if (card) {
-                    const heading = card.querySelector(
-                        "h2, h3, h4, .service-title"
-                    );
-
-                    if (heading) {
-                        serviceName = heading.textContent.trim();
-                    }
-                }
-            }
-
-            serviceName = findServiceName(serviceName);
-
-            if (!serviceName) {
+            if (!SERVICES[serviceKey]) {
                 alert("Please select a valid massage service.");
                 return;
             }
 
-            selectedService = serviceName;
-            selectedAddOns = [];
-            appointmentSelected = false;
+            if (serviceDropdown) {
+                serviceDropdown.value = serviceKey;
+            }
 
-            document.querySelectorAll(
-                ".service-card, .service-item, .service"
-            ).forEach(card => {
-                card.classList.remove("selected");
-            });
+            chooseService(serviceKey);
 
-            const selectedCard = button.closest(
-                ".service-card, .service-item, .service"
+            // Bring the selected service and add-ons into view.
+            const bookingForm = document.getElementById("booking-form");
+
+            if (bookingForm) {
+                bookingForm.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            }
+        });
+    });
+}
+
+
+function chooseService(serviceKey) {
+    const serviceDropdown = document.getElementById("service");
+
+    if (!SERVICES[serviceKey]) {
+        selectedService = "";
+
+        if (serviceDropdown) {
+            serviceDropdown.value = "";
+        }
+    } else {
+        selectedService = serviceKey;
+    }
+
+    // Reset add-ons when the customer changes the massage.
+    const hotStones = document.getElementById("hot-stones");
+    const footScrub = document.getElementById("foot-scrub");
+
+    if (hotStones) {
+        hotStones.checked = false;
+    }
+
+    if (footScrub) {
+        footScrub.checked = false;
+    }
+
+    // Highlight the selected massage card.
+    document.querySelectorAll(".service-select").forEach(button => {
+        const card = button.closest(".card");
+
+        if (card) {
+            card.classList.toggle(
+                "selected",
+                button.dataset.service === selectedService
             );
+        }
 
-            if (selectedCard) {
-                selectedCard.classList.add("selected");
-            }
-
-            document.querySelectorAll(
-                "[data-service], .service-select, .select-service"
-            ).forEach(otherButton => {
-                otherButton.classList.remove("selected");
-
-                if (otherButton === button) {
-                    otherButton.classList.add("selected");
-                }
-            });
-
-            updateServiceDisplay();
-            updatePriceDisplay();
-            updateAddOnAvailability();
-        });
-    });
-
-    setupAddOnSelection();
-}
-
-
-function findServiceName(name) {
-    const normalisedName = name
-        .toLowerCase()
-        .replace(/\s+/g, " ")
-        .trim();
-
-    return Object.keys(SERVICES).find(service => {
-        return service.toLowerCase() === normalisedName;
-    }) || Object.keys(SERVICES).find(service => {
-        return normalisedName.includes(service.toLowerCase());
-    }) || null;
-}
-
-
-function updateServiceDisplay() {
-    const serviceDisplay = document.querySelector(
-        "#selected-service, [data-selected-service]"
-    );
-
-    if (serviceDisplay) {
-        serviceDisplay.textContent = selectedService || "";
-    }
-
-    const serviceInput = document.querySelector(
-        "#service, #massage-service, input[name='service']"
-    );
-
-    if (serviceInput) {
-        serviceInput.value = selectedService;
-    }
-}
-
-
-/* ==========================================
-   4. ADD-ONS AND PRICES
-   ========================================== */
-
-function setupAddOnSelection() {
-    const addOnInputs = document.querySelectorAll(
-        "[data-addon], input[name='addons'], input[name='add-ons']"
-    );
-
-    addOnInputs.forEach(input => {
-        input.addEventListener("change", () => {
-            const addOnName =
-                input.dataset.addon ||
-                input.value ||
-                "";
-
-            if (!selectedService) {
-                input.checked = false;
-
-                alert("Please select a massage service first.");
-                return;
-            }
-
-            if (!isAddOnAvailable(addOnName)) {
-                input.checked = false;
-
-                alert(
-                    "This add-on is not available for the selected massage."
-                );
-
-                return;
-            }
-
-            if (input.checked) {
-                if (!selectedAddOns.includes(addOnName)) {
-                    selectedAddOns.push(addOnName);
-                }
-            } else {
-                selectedAddOns = selectedAddOns.filter(
-                    item => item !== addOnName
-                );
-            }
-
-            appointmentSelected = false;
-
-            updatePriceDisplay();
-        });
-    });
-}
-
-
-function isAddOnAvailable(addOnName) {
-    const name = addOnName.toLowerCase();
-
-    if (name.includes("hot")) {
-        return (
-            selectedService === "Deep Tissue Massage" ||
-            selectedService === "Swedish Massage"
+        button.classList.toggle(
+            "selected",
+            button.dataset.service === selectedService
         );
+    });
+
+    updateAddOnAvailability();
+    calculateTotal();
+}
+
+
+/* =========================================
+   4. ADD-ONS
+   ========================================= */
+
+function setupAddOns() {
+    const hotStones = document.getElementById("hot-stones");
+    const footScrub = document.getElementById("foot-scrub");
+
+    if (hotStones) {
+        hotStones.addEventListener("change", () => {
+            calculateTotal();
+        });
     }
 
-    if (name.includes("foot")) {
-        return selectedService === "Swedish Massage";
+    if (footScrub) {
+        footScrub.addEventListener("change", () => {
+            calculateTotal();
+        });
     }
 
-    return false;
+    updateAddOnAvailability();
+    calculateTotal();
 }
 
 
 function updateAddOnAvailability() {
-    const addOnInputs = document.querySelectorAll(
-        "[data-addon], input[name='addons'], input[name='add-ons']"
-    );
+    const hotStones = document.getElementById("hot-stones");
+    const footScrub = document.getElementById("foot-scrub");
 
-    addOnInputs.forEach(input => {
-        const addOnName =
-            input.dataset.addon ||
-            input.value ||
-            "";
+    const hotStonesAvailable =
+        selectedService === "deep" ||
+        selectedService === "swedish";
 
-        const available = isAddOnAvailable(addOnName);
-
-        input.disabled = !available;
-
-        if (!available) {
-            input.checked = false;
-
-            selectedAddOns = selectedAddOns.filter(
-                item => item !== addOnName
-            );
-        }
-    });
-
-    const hotStones = document.querySelector(
-        "#hot-stones, input[value='Hot Stones']"
-    );
-
-    const footScrubbing = document.querySelector(
-        "#foot-scrubbing, input[value='Foot Scrubbing']"
-    );
+    const footScrubAvailable =
+        selectedService === "swedish";
 
     if (hotStones) {
-        hotStones.disabled = !(
-            selectedService === "Deep Tissue Massage" ||
-            selectedService === "Swedish Massage"
-        );
+        hotStones.disabled = !hotStonesAvailable;
+
+        if (!hotStonesAvailable) {
+            hotStones.checked = false;
+        }
     }
 
-    if (footScrubbing) {
-        footScrubbing.disabled =
-            selectedService !== "Swedish Massage";
+    if (footScrub) {
+        footScrub.disabled = !footScrubAvailable;
+
+        if (!footScrubAvailable) {
+            footScrub.checked = false;
+        }
     }
 }
 
 
+/* =========================================
+   5. AUTOMATIC PRICE CALCULATION
+   ========================================= */
+
 function calculateTotal() {
-    if (!selectedService || !SERVICES[selectedService]) {
-        return 0;
+    let total = 0;
+
+    if (selectedService && SERVICES[selectedService]) {
+        total = SERVICES[selectedService].price;
     }
 
-    let total = SERVICES[selectedService].price;
+    const hotStones = document.getElementById("hot-stones");
+    const footScrub = document.getElementById("foot-scrub");
 
-    selectedAddOns.forEach(addOn => {
-        if (ADD_ONS[addOn]) {
-            total += ADD_ONS[addOn];
-        }
-    });
+    if (hotStones && hotStones.checked) {
+        total += HOT_STONES_PRICE;
+    }
+
+    if (footScrub && footScrub.checked) {
+        total += FOOT_SCRUB_PRICE;
+    }
+
+    const totalDisplay = document.getElementById("booking-total");
+    const totalHidden = document.getElementById("booking-total-value");
+
+    if (totalDisplay) {
+        totalDisplay.textContent =
+            "R" + total.toLocaleString("en-ZA");
+    }
+
+    if (totalHidden) {
+        totalHidden.value = total;
+    }
 
     return total;
 }
 
 
-function updatePriceDisplay() {
-    const priceDisplay = document.querySelector(
-        "#total-price, #service-price, [data-total-price]"
-    );
-
-    if (priceDisplay) {
-        priceDisplay.textContent =
-            "R" + calculateTotal().toLocaleString("en-ZA");
-    }
-
-    const basePriceDisplay = document.querySelector(
-        "#base-price, [data-base-price]"
-    );
-
-    if (basePriceDisplay && selectedService) {
-        basePriceDisplay.textContent =
-            "R" +
-            SERVICES[selectedService].price.toLocaleString("en-ZA");
-    }
-}
-
-
-/* ==========================================
-   5. FULL MONTHLY CALENDAR
-   ========================================== */
+/* =========================================
+   6. MONTHLY CALENDAR
+   ========================================= */
 
 function setupCalendar() {
     const calendarGrid = document.getElementById("calendar-grid");
@@ -378,8 +293,9 @@ function setupCalendar() {
     const nextButton = document.getElementById("next-month");
 
     const dateInput = document.getElementById("appointment-date");
-    const timeGrid = document.getElementById("time-grid");
     const timeInput = document.getElementById("appointment-time");
+
+    const timeGrid = document.getElementById("time-grid");
 
     const selectButton = document.getElementById("select-appointment");
     const addButton = document.getElementById("add-appointment");
@@ -394,15 +310,17 @@ function setupCalendar() {
     }
 
     const today = new Date();
-
     today.setHours(0, 0, 0, 0);
 
     let displayedYear = today.getFullYear();
     let displayedMonth = today.getMonth();
 
-    // Display the full current month.
     renderCalendar();
+    renderTimeSlots();
+    updateAppointmentButtons();
 
+
+    // Go to the previous month.
     previousButton.addEventListener("click", () => {
         displayedMonth--;
 
@@ -414,6 +332,8 @@ function setupCalendar() {
         renderCalendar();
     });
 
+
+    // Go to the next month.
     nextButton.addEventListener("click", () => {
         displayedMonth++;
 
@@ -429,6 +349,15 @@ function setupCalendar() {
     function renderCalendar() {
         calendarGrid.innerHTML = "";
 
+        monthHeading.textContent = new Date(
+            displayedYear,
+            displayedMonth,
+            1
+        ).toLocaleDateString("en-ZA", {
+            month: "long",
+            year: "numeric"
+        });
+
         const firstDay = new Date(
             displayedYear,
             displayedMonth,
@@ -441,21 +370,14 @@ function setupCalendar() {
             0
         ).getDate();
 
-        monthHeading.textContent = new Date(
-            displayedYear,
-            displayedMonth,
-            1
-        ).toLocaleDateString("en-ZA", {
-            month: "long",
-            year: "numeric"
-        });
-
-        previousButton.disabled =
-            displayedYear === today.getFullYear() &&
-            displayedMonth <= today.getMonth();
-
         const weekdayNames = [
-            "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+            "Sun",
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thu",
+            "Fri",
+            "Sat"
         ];
 
         weekdayNames.forEach(day => {
@@ -467,24 +389,18 @@ function setupCalendar() {
             calendarGrid.appendChild(heading);
         });
 
-        // Empty spaces before the first day of the month.
+        // Blank cells before the first day.
         for (let i = 0; i < firstDay; i++) {
-            const emptyCell = document.createElement("div");
+            const blank = document.createElement("div");
 
-            emptyCell.className = "calendar-empty";
-            emptyCell.setAttribute("aria-hidden", "true");
+            blank.className = "calendar-empty";
+            blank.setAttribute("aria-hidden", "true");
 
-            calendarGrid.appendChild(emptyCell);
+            calendarGrid.appendChild(blank);
         }
 
-        // Create every date in the month.
+        // Display every day in the selected month.
         for (let day = 1; day <= daysInMonth; day++) {
-            const dateButton = document.createElement("button");
-
-            dateButton.type = "button";
-            dateButton.className = "calendar-date";
-            dateButton.textContent = day;
-
             const date = new Date(
                 displayedYear,
                 displayedMonth,
@@ -495,18 +411,27 @@ function setupCalendar() {
 
             const dateString = formatDate(date);
 
-            dateButton.dataset.date = dateString;
+            const dayButton = document.createElement("button");
 
-            if (date < today) {
-                dateButton.disabled = true;
-                dateButton.classList.add("past-date");
-            }
+            dayButton.type = "button";
+            dayButton.className = "calendar-date";
+            dayButton.textContent = day;
+
+            dayButton.setAttribute(
+                "aria-pressed",
+                String(dateString === selectedDate)
+            );
 
             if (dateString === selectedDate) {
-                dateButton.classList.add("selected");
+                dayButton.classList.add("selected");
             }
 
-            dateButton.addEventListener("click", () => {
+            // Customers cannot choose dates in the past.
+            if (date < today) {
+                dayButton.disabled = true;
+            }
+
+            dayButton.addEventListener("click", () => {
                 if (date < today) {
                     return;
                 }
@@ -525,14 +450,16 @@ function setupCalendar() {
 
                 renderCalendar();
                 renderTimeSlots();
-
                 updateAppointmentButtons();
             });
 
-            calendarGrid.appendChild(dateButton);
+            calendarGrid.appendChild(dayButton);
         }
 
-        updateAppointmentButtons();
+        // Do not allow navigation to months before the current month.
+        previousButton.disabled =
+            displayedYear === today.getFullYear() &&
+            displayedMonth <= today.getMonth();
     }
 
 
@@ -557,17 +484,13 @@ function setupCalendar() {
             const timeButton = document.createElement("button");
 
             timeButton.type = "button";
-            timeButton.className = "time-slot";
+            timeButton.className = "time-option";
             timeButton.textContent = time;
 
             timeButton.setAttribute(
                 "aria-pressed",
                 String(time === selectedTime)
             );
-
-            if (time === selectedTime) {
-                timeButton.classList.add("selected");
-            }
 
             timeButton.addEventListener("click", () => {
                 selectedTime = time;
@@ -586,10 +509,11 @@ function setupCalendar() {
     }
 
 
+    // Confirm the selected date and time.
     if (selectButton) {
         selectButton.addEventListener("click", () => {
             if (!selectedDate || !selectedTime) {
-                alert("Please select both a date and a time.");
+                alert("Please select a date and time first.");
                 return;
             }
 
@@ -598,7 +522,7 @@ function setupCalendar() {
             updateAppointmentButtons();
 
             alert(
-                "Appointment selected: " +
+                "Selected appointment: " +
                 selectedDate +
                 " at " +
                 selectedTime
@@ -607,10 +531,11 @@ function setupCalendar() {
     }
 
 
+    // Add the selected appointment to the booking.
     if (addButton) {
         addButton.addEventListener("click", () => {
             if (!selectedDate || !selectedTime) {
-                alert("Please select both a date and a time.");
+                alert("Please select a date and time first.");
                 return;
             }
 
@@ -618,37 +543,41 @@ function setupCalendar() {
 
             updateAppointmentButtons();
 
-            const appointmentSummary = document.getElementById(
+            let summary = document.getElementById(
                 "appointment-summary"
             );
 
-            if (appointmentSummary) {
-                appointmentSummary.textContent =
+            if (!summary) {
+                summary = document.createElement("p");
+                summary.id = "appointment-summary";
+
+                const calendar = document.querySelector(".calendar");
+
+                if (calendar) {
+                    calendar.appendChild(summary);
+                }
+            }
+
+            if (summary) {
+                summary.textContent =
                     "Selected appointment: " +
                     selectedDate +
                     " at " +
                     selectedTime;
-            } else {
-                alert(
-                    "Appointment selected: " +
-                    selectedDate +
-                    " at " +
-                    selectedTime
-                );
             }
         });
     }
 
 
     function updateAppointmentButtons() {
-        const hasSelection = Boolean(selectedDate && selectedTime);
+        const ready = Boolean(selectedDate && selectedTime);
 
         if (selectButton) {
-            selectButton.disabled = !hasSelection;
+            selectButton.disabled = !ready;
         }
 
         if (addButton) {
-            addButton.disabled = !hasSelection;
+            addButton.disabled = !ready;
         }
     }
 
@@ -666,30 +595,25 @@ function setupCalendar() {
 
         return `${year}-${month}-${day}`;
     }
-
-    // Make the date formatter available to the rest of the script.
-    window.formatSpaDate = formatDate;
 }
 
 
-/* ==========================================
-   6. BOOKING FORM AND WHATSAPP
-   ========================================== */
+/* =========================================
+   7. BOOKING FORM AND WHATSAPP
+   ========================================= */
 
 function setupBookingForm() {
-    const bookingForm = document.querySelector(
-        "#booking-form, #appointment-form, form[data-booking-form]"
-    );
+    const form = document.getElementById("booking-form");
 
-    if (!bookingForm) {
+    if (!form) {
         return;
     }
 
-    bookingForm.addEventListener("submit", event => {
+    form.addEventListener("submit", event => {
         event.preventDefault();
 
-        if (!selectedService) {
-            alert("Please select a massage service.");
+        if (!selectedService || !SERVICES[selectedService]) {
+            alert("Please select a massage.");
             return;
         }
 
@@ -700,170 +624,75 @@ function setupBookingForm() {
 
         if (!appointmentSelected) {
             alert(
-                'Please press "Select" or "Add To Appointment" to confirm your appointment time.'
+                'Please press "Select" or "Add To Appointment" to confirm your appointment.'
             );
-
             return;
         }
 
-        const firstName = getInputValue([
-            "#first-name",
-            "#firstName",
-            "input[name='firstName']",
-            "input[name='first_name']"
-        ]);
+        const firstName = document.getElementById("first-name").value.trim();
+        const lastName = document.getElementById("last-name").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const email = document.getElementById("email").value.trim();
 
-        const lastName = getInputValue([
-            "#last-name",
-            "#lastName",
-            "input[name='lastName']",
-            "input[name='last_name']"
-        ]);
-
-        const phone = getInputValue([
-            "#phone",
-            "#phone-number",
-            "input[name='phone']"
-        ]);
-
-        const email = getInputValue([
-            "#email",
-            "input[name='email']"
-        ]);
+        const clientConsent = document.getElementById("client-consent");
+        const intakeConsent = document.getElementById("intake-consent");
 
         if (!firstName || !lastName || !phone || !email) {
-            alert(
-                "Please complete your first name, last name, phone number and email."
-            );
-
+            alert("Please complete all required booking information.");
             return;
         }
 
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (!emailPattern.test(email)) {
-            alert("Please enter a valid email address.");
+        if (!clientConsent.checked || !intakeConsent.checked) {
+            alert("Please complete the required consent checkboxes.");
             return;
         }
 
-        const consentCheckbox = document.querySelector(
-            "#client-consent, #consent, input[name='consent']"
-        );
+        const hotStones = document.getElementById("hot-stones");
+        const footScrub = document.getElementById("foot-scrub");
 
-        if (consentCheckbox && !consentCheckbox.checked) {
-            alert("Please accept the client consent before continuing.");
-            consentCheckbox.focus();
+        const addOns = [];
 
-            return;
+        if (hotStones && hotStones.checked) {
+            addOns.push("Hot stones (+R150)");
+        }
+
+        if (footScrub && footScrub.checked) {
+            addOns.push("Foot scrubbing (+R200)");
+        }
+
+        if (selectedService === "reflexology") {
+            addOns.push("Feet scrub included");
         }
 
         const total = calculateTotal();
 
-        const messageLines = [
+        const message = [
             "D. Matau Spa — Booking Request",
             "",
-            "Client: " + firstName + " " + lastName,
+            "First name: " + firstName,
+            "Last name: " + lastName,
             "Phone: " + phone,
             "Email: " + email,
             "",
-            "Massage: " + selectedService,
-            "Duration: " + SERVICES[selectedService].duration,
-            "Price: R" + SERVICES[selectedService].price
-                .toLocaleString("en-ZA"),
-            "Add-ons: " +
-                (
-                    selectedAddOns.length
-                        ? selectedAddOns.join(", ")
-                        : "None"
-                ),
+            "Massage: " + SERVICES[selectedService].name,
+            "Massage price: R" +
+                SERVICES[selectedService].price.toLocaleString("en-ZA"),
+            "Add-ons: " + (addOns.length ? addOns.join(", ") : "None"),
             "Total: R" + total.toLocaleString("en-ZA"),
             "",
             "Appointment date: " + selectedDate,
             "Appointment time: " + selectedTime,
-            "Time zone: SAST (South African Standard Time)",
+            "Time zone: SAST",
             "",
-            "This is a booking request. Please confirm availability."
-        ];
-
-        const whatsappMessage = encodeURIComponent(
-            messageLines.join("\n")
-        );
+            "Please confirm appointment availability."
+        ].join("\n");
 
         const whatsappURL =
             "https://wa.me/" +
             WHATSAPP_NUMBER +
             "?text=" +
-            whatsappMessage;
+            encodeURIComponent(message);
 
-        window.open(whatsappURL, "_blank", "noopener,noreferrer");
+        window.location.href = whatsappURL;
     });
-}
-
-
-function getInputValue(selectors) {
-    for (const selector of selectors) {
-        const input = document.querySelector(selector);
-
-        if (input) {
-            return input.value.trim();
-        }
-    }
-
-    return "";
-}
-
-
-/* ==========================================
-   7. WHATSAPP BUTTONS
-   ========================================== */
-
-function openSpaWhatsApp(message = "Hello, D. Matau Spa. I would like to enquire about a massage appointment.") {
-    const url =
-        "https://wa.me/" +
-        WHATSAPP_NUMBER +
-        "?text=" +
-        encodeURIComponent(message);
-
-    window.open(url, "_blank", "noopener,noreferrer");
-}
-
-
-document.querySelectorAll(
-    ".whatsapp-button, #whatsapp-button, [data-whatsapp]"
-).forEach(button => {
-    button.addEventListener("click", event => {
-        event.preventDefault();
-
-        openSpaWhatsApp();
-    });
-});
-
-
-/* ==========================================
-   8. TIKTOK LINK
-   ========================================== */
-
-document.querySelectorAll(
-    ".tiktok-button, #tiktok-button, [data-tiktok]"
-).forEach(button => {
-    button.addEventListener("click", event => {
-        event.preventDefault();
-
-        window.open(
-            "https://www.tiktok.com/@d.mataumobilespa",
-            "_blank",
-            "noopener,noreferrer"
-        );
-    });
-});
-
-
-/* ==========================================
-   9. FOOTER YEAR, IF PRESENT
-   ========================================== */
-
-const yearElement = document.getElementById("current-year");
-
-if (yearElement) {
-    yearElement.textContent = new Date().getFullYear();
 }
