@@ -29,9 +29,6 @@ const SERVICES = {
   }
 };
 
-const HOT_STONES_PRICE = 150;
-const FOOT_SCRUB_PRICE = 200;
-
 const AVAILABLE_TIMES = [
   "10:00 am",
   "10:30 am",
@@ -43,11 +40,15 @@ const AVAILABLE_TIMES = [
   "3:30 pm"
 ];
 
+const HOT_STONES_PRICE = 150;
+const FOOT_SCRUB_PRICE = 200;
+
+let appointmentSelected = false;
+
 document.addEventListener("DOMContentLoaded", () => {
   setupNavigation();
   setupBookingForm();
   setupCalendar();
-  setupExperienceRating();
 });
 
 function setupNavigation() {
@@ -57,9 +58,8 @@ function setupNavigation() {
   if (!toggle || !nav) return;
 
   toggle.addEventListener("click", () => {
-    const isOpen = nav.classList.toggle("is-open");
-
-    toggle.setAttribute("aria-expanded", String(isOpen));
+    const open = nav.classList.toggle("is-open");
+    toggle.setAttribute("aria-expanded", String(open));
   });
 
   nav.querySelectorAll("a").forEach((link) => {
@@ -80,28 +80,27 @@ function setupBookingForm() {
   const footScrub = document.querySelector("#foot-scrub");
   const totalOutput = document.querySelector("#booking-total");
   const totalInput = document.querySelector("#booking-total-value");
-
   const dateInput = document.querySelector("#appointment-date");
   const timeInput = document.querySelector("#appointment-time");
 
-  function updateBookingPrice() {
-    const selectedService = SERVICES[serviceSelect.value];
+  function updatePrice() {
+    const service = SERVICES[serviceSelect.value];
 
-    hotStones.disabled = !selectedService || !selectedService.hotStones;
-    footScrub.disabled = !selectedService || !selectedService.footScrub;
+    hotStones.disabled = !service || !service.hotStones;
+    footScrub.disabled = !service || !service.footScrub;
 
     if (hotStones.disabled) hotStones.checked = false;
     if (footScrub.disabled) footScrub.checked = false;
 
-    let total = selectedService ? selectedService.price : 0;
+    let total = service ? service.price : 0;
 
-    if (selectedService && hotStones.checked) {
+    if (service && hotStones.checked) {
       total += HOT_STONES_PRICE;
     }
 
     if (
-      selectedService &&
-      selectedService.name === "Swedish massage" &&
+      service &&
+      service.name === "Swedish massage" &&
       footScrub.checked
     ) {
       total += FOOT_SCRUB_PRICE;
@@ -111,11 +110,58 @@ function setupBookingForm() {
     totalInput.value = String(total);
   }
 
-  serviceSelect.addEventListener("change", updateBookingPrice);
-  hotStones.addEventListener("change", updateBookingPrice);
-  footScrub.addEventListener("change", updateBookingPrice);
+  serviceSelect.addEventListener("change", () => {
+    updatePrice();
+    appointmentSelected = false;
+  });
 
-  updateBookingPrice();
+  hotStones.addEventListener("change", updatePrice);
+  footScrub.addEventListener("change", updatePrice);
+
+  document.querySelectorAll(".service-select").forEach((button) => {
+    button.addEventListener("click", () => {
+      serviceSelect.value = button.dataset.service;
+      updatePrice();
+      appointmentSelected = false;
+
+      document.querySelector("#booking-form").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+  });
+
+  const selectAppointment = document.querySelector("#select-appointment");
+  const addAppointment = document.querySelector("#add-appointment");
+
+  if (selectAppointment) {
+    selectAppointment.addEventListener("click", () => {
+      if (!dateInput.value || !timeInput.value) {
+        alert("Please select an appointment date and time.");
+        return;
+      }
+
+      appointmentSelected = true;
+    });
+  }
+
+  if (addAppointment) {
+    addAppointment.addEventListener("click", () => {
+      if (!dateInput.value || !timeInput.value) {
+        alert("Please select an appointment date and time.");
+        return;
+      }
+
+      appointmentSelected = true;
+
+      document.querySelector("#first-name").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    });
+  }
+
+  updatePrice();
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -129,19 +175,20 @@ function setupBookingForm() {
       return;
     }
 
-    if (!dateInput.value || !timeInput.value) {
-      alert("Please select an appointment date and time.");
+    if (!dateInput.value || !timeInput.value || !appointmentSelected) {
+      alert("Please select your appointment and choose Add To Appointment.");
       return;
     }
 
-    const selectedDate = new Date(`${dateInput.value}T12:00:00`);
+    const date = new Date(`${dateInput.value}T12:00:00`);
 
     if (
-      selectedDate.getFullYear() !== 2026 ||
-      selectedDate.getMonth() !== 10 ||
-      selectedDate.getDate() > 22
+      date.getFullYear() !== 2026 ||
+      date.getMonth() !== 10 ||
+      date.getDate() < 1 ||
+      date.getDate() > 22
     ) {
-      alert("Please select a date in the displayed November calendar.");
+      alert("Please select a date from the November calendar.");
       return;
     }
 
@@ -152,18 +199,20 @@ function setupBookingForm() {
 
     const addOns = [];
 
-    if (hotStones.checked) addOns.push("Hot stones (+R150)");
+    if (hotStones.checked) {
+      addOns.push("Hot stones (+R150)");
+    }
 
-    if (
-      service.name === "Swedish massage" &&
-      footScrub.checked
-    ) {
+    if (service.name === "Swedish massage" && footScrub.checked) {
       addOns.push("Foot scrubbing (+R200)");
     }
 
     if (service.name === "Reflexology massage") {
       addOns.push("Feet scrub included");
     }
+
+    const photoConsent =
+      document.querySelector("#photo-consent").checked;
 
     const total = Number(totalInput.value);
 
@@ -184,16 +233,14 @@ function setupBookingForm() {
       "CLIENT CONSENT: Accepted",
       "Client Full Consent & Intake Agreement: Accepted",
       `Client Photo & Video Recording Consent: ${
-        document.querySelector("#photo-consent").checked
-          ? "Accepted"
-          : "Not given"
+        photoConsent ? "Accepted" : "Not given"
       }`
     ].join("\n");
 
-    const whatsappURL =
+    const url =
       `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
-    window.open(whatsappURL, "_blank", "noopener,noreferrer");
+    window.open(url, "_blank", "noopener,noreferrer");
   });
 }
 
@@ -201,33 +248,30 @@ function setupCalendar() {
   const calendar = document.querySelector("#calendar-grid");
   const dateInput = document.querySelector("#appointment-date");
   const timeInput = document.querySelector("#appointment-time");
-  const timeButtons = document.querySelector("#time-grid");
+  const timeGrid = document.querySelector("#time-grid");
 
-  if (!calendar || !dateInput || !timeInput || !timeButtons) return;
+  if (!calendar || !dateInput || !timeInput || !timeGrid) return;
 
   const year = 2026;
-  const month = 10; // November
-  const numberOfDays = 22;
+  const month = 10;
+  const daysToDisplay = 22;
+  const firstDay = new Date(year, month, 1).getDay();
 
-  const firstWeekday = new Date(year, month, 1).getDay();
-
-  const weekdayNames = ["S", "M", "T", "W", "T", "F", "S"];
-
-  weekdayNames.forEach((name) => {
+  ["S", "M", "T", "W", "T", "F", "S"].forEach((day) => {
     const heading = document.createElement("div");
     heading.className = "calendar-day-name";
-    heading.textContent = name;
+    heading.textContent = day;
     calendar.appendChild(heading);
   });
 
-  for (let i = 0; i < firstWeekday; i++) {
+  for (let i = 0; i < firstDay; i++) {
     const empty = document.createElement("div");
     empty.className = "calendar-date empty";
     empty.setAttribute("aria-hidden", "true");
     calendar.appendChild(empty);
   }
 
-  for (let day = 1; day <= numberOfDays; day++) {
+  for (let day = 1; day <= daysToDisplay; day++) {
     const button = document.createElement("button");
 
     button.type = "button";
@@ -237,19 +281,18 @@ function setupCalendar() {
     button.setAttribute("aria-label", `November ${day}, 2026`);
 
     button.addEventListener("click", () => {
-      calendar.querySelectorAll(".calendar-date").forEach((dateButton) => {
-        dateButton.setAttribute("aria-pressed", "false");
+      calendar.querySelectorAll(".calendar-date").forEach((item) => {
+        item.setAttribute("aria-pressed", "false");
       });
 
       button.setAttribute("aria-pressed", "true");
 
-      dateInput.value =
-        `2026-11-${String(day).padStart(2, "0")}`;
-
+      dateInput.value = `2026-11-${String(day).padStart(2, "0")}`;
       timeInput.value = "";
+      appointmentSelected = false;
 
-      timeButtons.querySelectorAll(".time-option").forEach((timeButton) => {
-        timeButton.setAttribute("aria-pressed", "false");
+      timeGrid.querySelectorAll(".time-option").forEach((item) => {
+        item.setAttribute("aria-pressed", "false");
       });
     });
 
@@ -270,44 +313,21 @@ function setupCalendar() {
         return;
       }
 
-      timeButtons.querySelectorAll(".time-option").forEach((timeButton) => {
-        timeButton.setAttribute("aria-pressed", "false");
+      timeGrid.querySelectorAll(".time-option").forEach((item) => {
+        item.setAttribute("aria-pressed", "false");
       });
 
       button.setAttribute("aria-pressed", "true");
       timeInput.value = time;
+      appointmentSelected = false;
     });
 
-    timeButtons.appendChild(button);
+    timeGrid.appendChild(button);
   });
-
-  dateInput.addEventListener("change", () => {
-    const chosenDate = new Date(`${dateInput.value}T12:00:00`);
-
-    if (
-      chosenDate.getFullYear() !== 2026 ||
-      chosenDate.getMonth() !== 10 ||
-      chosenDate.getDate() < 1 ||
-      chosenDate.getDate() > 22
-    ) {
-      dateInput.value = "";
-      timeInput.value = "";
-    }
-  });
-}
-
-function setupExperienceRating() {
-  const rating = document.querySelector("#experience-rating");
-
-  if (!rating) return;
-
-  // The rating is optional and is not required to request a booking.
 }
 
 function formatDate(dateString) {
-  const date = new Date(`${dateString}T12:00:00`);
-
-  return date.toLocaleDateString("en-ZA", {
+  return new Date(`${dateString}T12:00:00`).toLocaleDateString("en-ZA", {
     day: "numeric",
     month: "long",
     year: "numeric"
