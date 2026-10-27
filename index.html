@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D. Matau Spa | Mobile Massage Therapy & Wellness</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Palette: Olive Green & Soft Warm Beige */
+      --olive-dark: #2A361C;
+      --olive-main: #3C4B27;
+      --olive-light: #526338;
+      --beige-dark: #C4B59D;
+      --beige-main: #D9CEBC;
+      --beige-light: #EFE8DC;
+      --beige-soft: #F9F6F0;
+      
+      --text-dark: #22271D;
+      --text-light: #F9F6F0;
+      --gold-accent: #D4AF37;
+      --gold-light: #F3E5AB;
+
+      /* Liquid Glass FX */
+      --glass-bg: rgba(239, 232, 220, 0.45);
+      --glass-border: rgba(255, 255, 255, 0.4);
+      --glass-shadow: 0 8px 32px 0 rgba(42, 54, 28, 0.12);
+      
+      --glass-dark-bg: rgba(42, 54, 28, 0.75);
+      --glass-dark-border: rgba(212, 175, 55, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--beige-soft);
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .brand-font {
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 0.5px;
+    }
+
+    /* LIQUID GLASS BUTTONS */
+    .btn-liquid {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 28px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--olive-dark);
+      background: rgba(217, 206, 188, 0.35);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 50px;
+      box-shadow: 0 8px 20px rgba(42, 54, 28, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-liquid::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 70%);
+      transform: scale(0);
+      transition: transform 0.6s ease-out;
+      pointer-events: none;
+    }
+
+    .btn-liquid:hover {
+      background: rgba(60, 75, 39, 0.9);
+      color: var(--beige-soft);
+      border-color: var(--gold-accent);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(42, 54, 28, 0.2), 0 0 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .btn-liquid:hover::before {
+      transform: scale(1);
+    }
+
+    .btn-liquid-dark {
+      background: rgba(42, 54, 28, 0.85);
+      color: var(--beige-main);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+    }
+
+    .btn-liquid-dark:hover {
+      background: var(--beige-main);
+      color: var(--olive-dark);
+      border-color: var(--olive-dark);
+    }
+
+    /* NAVIGATION */
+    header {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 1200px;
+      z-index: 1000;
+    }
+
+    nav {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      border-radius: 50px;
+      padding: 10px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-img {
+      height: 45px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 8px;
+      position: relative;
+    }
+
+    /* Dynamic Liquid Glass Pill Indicator */
+    .glass-pill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: rgba(60, 75, 39, 0.85);
+      border-radius: 30px;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      z-index: 1;
+      box-shadow: 0 4px 12px rgba(42, 54, 28, 0.2);
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      color: var(--olive-dark);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 10px 18px;
+      display: block;
+      position: relative;
+      z-index: 2;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links li.active a, .nav-links li a:hover {
+      color: var(--beige-light);
+    }
+
+    /* LAYOUT SECTIONS */
+    section {
+      padding: 100px 20px 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* HERO SECTION */
+    #home {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 140px;
+      background: radial-gradient(circle at 80% 20%, rgba(196, 181, 157, 0.3) 0%, rgba(249, 246, 240, 1) 70%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .hero-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--glass-shadow);
+    }
+
+    .hero-subtitle {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--olive-main);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-size: 3.2rem;
+      color: var(--olive-dark);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .hero-text {
+      font-size: 1.05rem;
+      color: var(--text-dark);
+      margin-bottom: 30px;
+    }
+
+    .hero-img-box {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(42, 54, 28, 0.15);
+      border: 8px solid var(--glass-bg);
+    }
+
+    .hero-img-box img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s ease;
+    }
+
+    .hero-img-box:hover img {
+      transform: scale(1.03);
+    }
+
+    /* BOOKING & SERVICES */
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 60px;
+    }
+
+    .section-title {
+      font-size: 2.8rem;
+      color: var(--olive-dark);
+      margin-bottom: 15px;
+    }
+
+    .section-desc {
+      font-size: 1rem;
+      color: var(--olive-main);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+
+    .service-card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      border: 1px solid var(--beige-main);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(42, 54, 28, 0.1);
+      border-color: var(--olive-main);
+    }
+
+    .service-card.selected {
+      border: 2px solid var(--olive-main);
+      background: var(--beige-light);
+    }
+
+    .service-title {
+      font-size: 1.8rem;
+      color: var(--olive-dark);
+      margin-bottom: 10px;
+    }
+
+    .service-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--olive-main);
+      margin-bottom: 15px;
+    }
+
+    .service-desc {
+      font-size: 0.92rem;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .addon-group {
+      background: rgba(239, 232, 220, 0.5);
+      padding: 15px;
+      border-radius: 12px;
+      margin-top: 15px;
+    }
+
+    .addon-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--olive-dark);
+      margin-bottom: 10px;
+    }
+
+    .addon-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+
+    .addon-option input {
+      accent-color: var(--olive-dark);
+    }
+
+    /* INTERACTIVE BOOKING CONTAINER */
+    .booking-wrapper {
+      background: var(--olive-dark);
+      color: var(--beige-light);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 20px 50px rgba(42, 54, 28, 0.25);
+    }
+
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .booking-form .form-group {
+      margin-bottom: 20px;
+    }
+
+    .booking-form label {
+      display: block;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      color: var(--beige-main);
+    }
+
+    .booking-form input, .booking-form select, .booking-form textarea {
+      width: 100%;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(217, 206, 188, 0.3);
+      border-radius: 12px;
+      color: white;
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .booking-form input:focus, .booking-form select:focus, .booking-form textarea:focus {
+      border-color: var(--gold-accent);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .booking-form select option {
+      background: var(--olive-dark);
+      color: white;
+    }
+
+    .time-slots {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .time-btn {
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(217, 206, 188, 0.3);
+      border-radius: 8px;
+      color: white;
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .time-btn:hover, .time-btn.selected {
+      background: var(--gold-accent);
+      color: var(--olive-dark);
+      border-color: var(--gold-accent);
+      font-weight: 600;
+    }
+
+    .summary-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(217, 206, 188, 0.2);
+      border-radius: 16px;
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .summary-title {
+      font-size: 1.8rem;
+      color: var(--beige-main);
+      border-bottom: 1px solid rgba(217, 206, 188, 0.2);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    .summary-total {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--gold-accent);
+      border-top: 1px dashed rgba(217, 206, 188, 0.3);
+      padding-top: 15px;
+      margin-top: 15px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 20px 0;
+      font-size: 0.82rem;
+      color: var(--beige-main);
+    }
+
+    .checkbox-group input {
+      width: auto;
+      margin-top: 3px;
+      accent-color: var(--gold-accent);
+    }
+
+    /* ABOUT SECTION */
+    #about {
+      background: var(--beige-light);
+      border-radius: 30px;
+      margin-top: 40px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .about-text {
+      font-size: 1.05rem;
+      color: var(--text-dark);
+    }
+
+    .about-text p {
+      margin-bottom: 20px;
+    }
+
+    /* POLICIES & CONTACT */
+    .policy-card {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--olive-main);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    }
+
+    .policy-title {
+      font-size: 1.4rem;
+      color: var(--olive-dark);
+      margin-bottom: 10px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .contact-info-card {
+      background: var(--olive-dark);
+      color: var(--beige-light);
+      border-radius: 20px;
+      padding: 40px;
+    }
+
+    .contact-info-card h3 {
+      font-size: 2.2rem;
+      color: var(--beige-main);
+      margin-bottom: 20px;
+    }
+
+    .contact-detail {
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+
+    .contact-detail strong {
+      display: block;
+      color: var(--gold-accent);
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--olive-dark);
+      color: var(--beige-main);
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 900px) {
+      .hero-grid, .booking-grid, .about-grid, .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      nav {
+        flex-direction: column;
+        gap: 15px;
+        border-radius: 25px;
+      }
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .glass-pill {
+        display: none; /* Fallback for small screens */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FLOATING LIQUID GLASS NAVIGATION BAR -->
+  <header>
+    <nav>
+      <div class="logo-container">
+        <!-- Official Logo Image -->
+        <img src="image_12.png" alt="D. Matau Spa Logo" class="logo-img">
+      </div>
+      <div class="glass-pill" id="glassPill"></div>
+      <ul class="nav-links" id="navLinks">
+        <li class="active"><a href="#home">Home</a></li>
+        <li><a href="#services">Book Session</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#cancellation">Cancellation Policy</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HOME / HERO SECTION -->
+  <section id="home">
+    <div class="hero-grid">
+      <div class="hero-card">
+        <div class="hero-subtitle">Mobile Spa & Wellness Experience</div>
+        <h1 class="hero-title">Release Stress. Ease Tension. Feel Refreshed.</h1>
+        <p class="hero-text">
+          Hi, I'm <strong>Dimakatso Wendy Mokhele</strong>, a massage therapist and founder of <strong>D. Matau Spa</strong>. I am very passionate about massage therapy and dedicated to helping you revitalize your mind and body.
+        </p>
+        <a href="#services" class="btn-liquid">View Full Services</a>
+      </div>
+      <div class="hero-img-box">
+        <!-- Founder / Hero Image Placeholder -->
+        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1000&q=80" alt="Spa Massage Session">
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING & SERVICES SECTION -->
+  <section id="services">
+    <div class="section-header">
+      <h2 class="section-title">Book Your Session</h2>
+      <p class="section-desc">Your relaxation is our priority. Choose your preferred massage treatment from our catalogue and customize your wellness experience.</p>
+    </div>
+
+    <!-- TREATMENT CATALOGUE GRID -->
+    <div class="services-grid">
+      
+      <!-- Deep Tissue -->
+      <div class="service-card" onclick="selectService('Deep Tissue Massage', 1000, this)">
+        <div>
+          <h3 class="service-title">Deep Tissue Massage</h3>
+          <div class="service-price">R1,000 <span style="font-size:0.8rem; font-weight:normal;">/ 60 mins</span></div>
+          <p class="service-desc">Designed to relieve muscle tension, ease tightness, and promote deep relaxation. Focuses on pressure on deeper layers of muscles.</p>
+        </div>
+        <div class="addon-group" onclick="event.stopPropagation();">
+          <div class="addon-title">Available Add-ons</div>
+          <label class="addon-option">
+            <span><input type="checkbox" onchange="toggleAddon('Hot Stones', 150, this)"> Hot Stones</span>
+            <span>+R150</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Swedish Massage -->
+      <div class="service-card" onclick="selectService('Swedish Massage', 800, this)">
+        <div>
+          <h3 class="service-title">Swedish Massage</h3>
+          <div class="service-price">R800 <span style="font-size:0.8rem; font-weight:normal;">/ 60 mins</span></div>
+          <p class="service-desc">Offers a gentle, relaxing experience designed to ease muscle tension, improve circulation, and calm your mind.</p>
+        </div>
+        <div class="addon-group" onclick="event.stopPropagation();">
+          <div class="addon-title">Available Add-ons</div>
+          <label class="addon-option">
+            <span><input type="checkbox" onchange="toggleAddon('Hot Stones', 150, this)"> Hot Stones</span>
+            <span>+R150</span>
+          </label>
+          <label class="addon-option">
+            <span><input type="checkbox" onchange="toggleAddon('Foot Scrubbing', 200, this)"> Foot Scrubbing</span>
+            <span>+R200</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Aromatherapy Massage -->
+      <div class="service-card" onclick="selectService('Aromatherapy Massage', 850, this)">
+        <div>
+          <h3 class="service-title">Aromatherapy Massage</h3>
+          <div class="service-price">R850 <span style="font-size:0.8rem; font-weight:normal;">/ 60 mins</span></div>
+          <p class="service-desc">Treat yourself to a soothing aromatherapy massage with fragrant essential oils to help you relax, ease stress, and restore calm.</p>
+        </div>
+      </div>
+
+      <!-- Reflexology Massage -->
+      <div class="service-card" onclick="selectService('Reflexology Massage', 1200, this)">
+        <div>
+          <h3 class="service-title">Reflexology Massage</h3>
+          <div class="service-price">R1,200 <span style="font-size:0.8rem; font-weight:normal;">/ 60 mins</span></div>
+          <p class="service-desc">Focuses on specific pressure points on the feet, hands, and ears. Includes full feet scrub and targeted head/neck reflex areas.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- INTERACTIVE BOOKING FORM & SUMMARY -->
+    <div class="booking-wrapper">
+      <div class="booking-grid">
+        <form class="booking-form" id="appointmentForm" onsubmit="handleBookingSubmit(event)">
+          <h3 style="font-size: 2rem; color: var(--beige-main); margin-bottom: 20px;">Your Booking Information</h3>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" id="firstName" required placeholder="First name">
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" id="lastName" required placeholder="Last name">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="phone" required placeholder="e.g. 084 655 8531">
+          </div>
+
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="email" required placeholder="your.email@example.com">
+          </div>
+
+          <div class="form-group">
+            <label>Select Date</label>
+            <input type="date" id="bookingDate" required onchange="updateSummary()">
+          </div>
+
+          <div class="form-group">
+            <label>Select Time (SAST - South African Standard Time)</label>
+            <div class="time-slots">
+              <div class="time-btn" onclick="selectTime('10:00 AM', this)">10:
