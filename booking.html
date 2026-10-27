@@ -1,260 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explore massage treatments and request an appointment with D. Matau Spa.">
-    <title>Book Your Session | D. Matau Spa</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Your Session / Services — D. Matau Spa</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
 
-<header class="site-header">
-    <a href="index.html" class="logo">D. Matau <span>Spa</span></a>
-    <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="index.html" aria-label="D. Matau Spa">
+        <img src="images/logo.png" alt="">
+      </a>
 
-    <nav class="navigation">
-        <a href="index.html">Home</a>
-        <a href="booking.html" class="active">Book Your Session</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="cancellation.html">Cancellation Policy</a>
-    </nav>
-</header>
+      <button class="nav-toggle" type="button"
+        aria-expanded="false" aria-label="Open navigation">
+        ☰
+      </button>
 
-<main>
-    <section class="page-heading">
-        <p class="eyebrow">YOUR TIME TO UNWIND</p>
-        <h1>Book Your Session</h1>
-        <p>Your relaxation is our priority. Choose a massage treatment and send us your preferred appointment details.</p>
-    </section>
-
-    <section class="content-container">
-        <div class="text-content">
-            <h2>Our Massage Treatments</h2>
-            <p>
-                Treat yourself to a moment of peace, relieve stress and let us
-                help you feel refreshed and renewed. Explore our massage
-                catalogue and select the treatment that suits you.
-            </p>
-        </div>
-
-        <div class="card-grid">
-
-            <article class="card">
-                <div class="card-image image-placeholder">
-                    <span>Deep Tissue Massage Image</span>
-                </div>
-                <h3>Deep Tissue Massage</h3>
-                <p>
-                    Designed to relieve muscle tension, ease tightness and
-                    promote deep relaxation by working on deeper layers
-                    of muscle tissue.
-                </p>
-                <p class="price">60 minutes · R1,000</p>
-                <p class="small-note">Optional hot stones: R150</p>
-            </article>
-
-            <article class="card">
-                <div class="card-image image-placeholder">
-                    <span>Swedish Massage Image</span>
-                </div>
-                <h3>Swedish Massage</h3>
-                <p>
-                    A gentle, relaxing massage designed to ease muscle
-                    tension, support circulation and relieve everyday stress.
-                </p>
-                <p class="price">60 minutes · R800</p>
-                <p class="small-note">
-                    Hot stones: R150 · Foot scrubbing: R200
-                </p>
-            </article>
-
-            <article class="card">
-                <div class="card-image image-placeholder">
-                    <span>Aromatherapy Massage Image</span>
-                </div>
-                <h3>Aromatherapy Massage</h3>
-                <p>
-                    Enjoy a soothing massage using aromatic essential oils
-                    to encourage relaxation, ease stress and restore calm.
-                </p>
-                <p class="price">60 minutes · R850</p>
-            </article>
-
-            <article class="card">
-                <div class="card-image image-placeholder">
-                    <span>Reflexology Massage Image</span>
-                </div>
-                <h3>Reflexology Massage</h3>
-                <p>
-                    Focuses on selected pressure points on the feet, hands
-                    and ears. Your therapist can explain the treatment
-                    and its suitability before your session.
-                </p>
-                <p class="price">60 minutes · R1,200</p>
-                <p class="small-note">Includes foot scrubbing.</p>
-            </article>
-
-        </div>
-    </section>
-
-    <section class="content-container">
-        <div class="form-section">
-            <p class="eyebrow">PERSONALISE YOUR EXPERIENCE</p>
-            <h2>Request an Appointment</h2>
-
-            <p>
-                Complete the form with your preferred treatment and time.
-                Your request will open in WhatsApp for you to send to the spa.
-                Your appointment is not confirmed until the spa responds.
-            </p>
-
-            <form id="booking-form">
-
-                <div class="form-group">
-                    <label for="service">Choose Your Massage *</label>
-                    <select id="service" name="service" required>
-                        <option value="">Select a treatment</option>
-                        <option value="deep">Deep Tissue Massage — R1,000</option>
-                        <option value="swedish">Swedish Massage — R800</option>
-                        <option value="aromatherapy">Aromatherapy Massage — R850</option>
-                        <option value="reflexology">Reflexology Massage — R1,200</option>
-                    </select>
-                </div>
-
-                <h3>Add-ons</h3>
-
-                <div class="checkbox-group">
-                    <input type="checkbox" id="hot-stones" name="hot-stones">
-                    <label for="hot-stones">Hot stones — add R150</label>
-                </div>
-
-                <div class="checkbox-group">
-                    <input type="checkbox" id="foot-scrub" name="foot-scrub">
-                    <label for="foot-scrub">Foot scrubbing — add R200</label>
-                </div>
-
-                <p class="small-note">
-                    Add-on availability and final pricing will be confirmed by the spa.
-                </p>
-
-                <div class="total-price" id="total-price">
-                    Estimated total: R0
-                </div>
-
-                <div class="form-group">
-                    <label for="appointment-date">Preferred Date *</label>
-                    <input type="date" id="appointment-date"
-                           name="appointment-date" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="appointment-time">Preferred Time *</label>
-                    <select id="appointment-time" name="appointment-time" required>
-                        <option value="">Choose a time</option>
-                        <option value="10:00">10:00</option>
-                        <option value="10:30">10:30</option>
-                        <option value="11:00">11:00</option>
-                        <option value="11:30">11:30</option>
-                        <option value="14:00">14:00 (2:00 pm)</option>
-                        <option value="14:30">14:30 (2:30 pm)</option>
-                        <option value="15:00">15:00 (3:00 pm)</option>
-                        <option value="15:30">15:30 (3:30 pm)</option>
-                    </select>
-                    <p class="small-note">
-                        Times are in South African Standard Time (SAST).
-                        Availability must be confirmed by the spa.
-                    </p>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="first-name">First Name *</label>
-                        <input type="text" id="first-name"
-                               name="first-name" autocomplete="given-name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="last-name">Last Name *</label>
-                        <input type="text" id="last-name"
-                               name="last-name" autocomplete="family-name" required>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="phone">Phone Number *</label>
-                    <input type="tel" id="phone" name="phone"
-                           autocomplete="tel" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email Address *</label>
-                    <input type="email" id="email" name="email"
-                           autocomplete="email" required>
-                </div>
-
-                <div class="policy-section">
-                    <h3>Client Consent and Intake Agreement</h3>
-                    <p>
-                        Your comfort, safety, privacy and relaxation are important
-                        to D. Matau Spa. Please discuss relevant medical concerns
-                        with your therapist before your session.
-                    </p>
-
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="client-consent" required>
-                        <label for="client-consent">
-                            I have read and agree to the client consent and
-                            intake information, and I will inform the therapist
-                            of relevant medical concerns before the massage.
-                        </label>
-                    </div>
-                </div>
-
-                <div class="policy-section">
-                    <h3>Client Photo and Video Consent</h3>
-                    <p>
-                        D. Matau Spa will only take or share photos, videos or
-                        recordings of you with your permission. You can decline
-                        promotional recording and still enquire about a service.
-                    </p>
-
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="photo-consent">
-                        <label for="photo-consent">
-                            I consent to photos or videos being taken or shared
-                            for promotional purposes.
-                        </label>
-                    </div>
-                    <p class="small-note">
-                        Leave this unchecked if you do not consent.
-                    </p>
-                </div>
-
-                <button type="submit" class="glass-button primary button-full">
-                    Send Appointment Request via WhatsApp
-                </button>
-
-                <p class="form-message">
-                    Sending this request does not automatically confirm
-                    your appointment or process a payment.
-                </p>
-            </form>
-        </div>
-    </section>
-</main>
-
-<footer class="site-footer">
-    <a href="index.html" class="footer-logo">D. Matau Spa</a>
-    <p>Relax · Rejuvenate · Restore</p>
-    <p>© <span class="current-year"></span> D. Matau Spa. All rights reserved.</p>
-    <div class="footer-links">
-        <a href="contact.html">Contact</a>
-        <a href="cancellation.html">Cancellation Policy</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="index.html">HOME</a>
+        <a href="booking.html" aria-current="page">BOOK YOUR SESSION</a>
+        <a href="about.html">ABOUT</a>
+        <a href="contact.html">CONTACT</a>
+        <a href="cancellation.html">CANCELLATION POLICY</a>
+      </nav>
     </div>
-</footer>
+  </header>
+
+  <main class="container section">
+
+    <section class="section-heading">
+      <h1>Book Your Spot (Book Your Session / Appointment)</h1>
+
+      <h2>Your relaxation is our priority.</h2>
+      <h2>Book Your Massage.</h2>
+
+      <a class="btn" href="#services">View Full Service Options</a>
+
+      <p style="margin-top: 24px;">
+        Treat yourself to a moment of peace, relieve stress and let us
+        help you feel refreshed and renewed. Choose your preferred
+        massage from our massage catalogue and book your session.
+      </p>
+    </section>
+
+    <div class="photo-frame" style="margin-bottom: 40px;">
+      <img src="images/spa-bed.jpg" alt="">
+    </div>
+
+    <section id="services">
+      <h2>Massage Therapy</h2>
+
+      <div class="card-grid">
+
+        <article class="card">
+          <h3>Deep Tissue Massage</h3>
+
+          <p>
+            Our deep tissue massage is designed to help relieve muscle
+            tensions, ease tightness and promote deep relaxation.
+            We focus on pressure on a deeper layers of the muscles.
+          </p>
+
+          <p class="card-price">60 minutes R1000</p>
+          <p>Hot stones (+R150)</p>
+
+          <button class="btn service-select" type="button"
+            data-service="deep">Select</button>
+        </article>
+
+        <article class="card">
+          <h3>Swedish massage</h3>
+
+          <p>
+            Our Swedish massage offers a gentle, relaxing experience
+            designed to ease muscle tension, improve circulation, and
+            relieve everyday stress. We help you relax your body,
+            calm your mind.
+          </p>
+
+          <p class="card-price">60 minutes R800</p>
+          <p>Hot stones (+R150)</p>
+          <p>Foot scrubbing (+R200)</p>
+
+          <button class="btn service-select" type="button"
+            data-service="swedish">Select</button>
+        </article>
+
+        <article class="card">
+          <h3>Aromatherapy massage</h3>
+
+          <p>
+            Treat yourself to a soothing aromatherapy massage with
+            fragrant essential oils to help you relax, ease stress,
+            and restore a sense of calm. Let the gentle touch and
+            beautiful aromas create a peaceful and beautiful
+            experience for you mind and body.
+          </p>
+
+          <p class="card-price">60 minutes R850</p>
+
+          <button class="btn service-select" type="button"
+            data-service="aroma">Select</button>
+        </article>
+
+        <article class="card">
+          <h3>Reflexology massage</h3>
+
+          <p>
+            We offer relaxing reflexology sessions that focus on
+            specific pressure points on the feet, hands and ears.
+            These areas are believed to correspond with different
+            parts of the body. We also work on selected points
+            (head and neck reflex areas, chest area and pelvic are).
+          </p>
+
+          <p class="card-price">60 minutes R1200 + including Feet scrub.</p>
+
+          <button class="btn service-select" type="button"
+            data-service="reflexology">Select</button>
+        </article>
+
+      </div>
+    </section>
+
+    <form id="booking-form">
+
+      <section class="form-section">
+        <h2>Add-Ons</h2>
+
+        <div class="field">
+          <label for="service">Massage Therapy</label>
+
+          <select id="service" name="service" required>
+            <option value="">Select</option>
+            <option value="deep">Deep Tissue Massage</option>
+            <option value="swedish">Swedish massage</option>
+            <option value="aroma">Aromatherapy massage</option>
+            <option value="reflexology">Reflexology massage</option>
+          </select>
+        </div>
+
+        <div class="check-row">
+          <input type="checkbox" id="hot-stones" name="hot-stones">
+          <label for="hot-stones">Hot stones (+R150)</label>
+        </div>
+
+        <div class="check-row">
+          <input type="checkbox" id="foot-scrub" name="foot-scrub">
+          <label for="foot-scrub">Foot scrubbing (+R200)</label>
+        </div>
+
+        <div class="total-line">
+          <span>Total</span>
+          <output id="booking-total">R0</output>
+        </div>
+
+        <input type="hidden" id="booking-total-value" value="0">
+      </section>
+
+      <section class="form-section">
+        <h2>Select Appointment</h2>
+
+        <div class="calendar">
+          <h3>November</h3>
+
+          <div id="calendar-grid" class="calendar-grid"></div>
+
+          <input type="hidden" id="appointment-date" required>
+
+          <div class="time-grid" id="time-grid"></div>
+
+          <input type="hidden" id="appointment-time" required>
+
+          <p>Time Zone : SAST (South African Standard Time)</p>
+
+          <button class="btn btn-light" id="select-appointment"
+            type="button">Select</button>
+
+          <button class="btn" id="add-appointment"
+            type="button">Add To Appointment</button>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>BOOKING INFORMATION / Your Information</h2>
+
+        <div class="form-grid">
+          <div class="field">
+            <label for="first-name">First name</label>
+            <input id="first-name" name="first-name"
+              autocomplete="given-name" required>
+          </div>
+
+          <div class="field">
+            <label for="last-name">Last name</label>
+            <input id="last-name" name="last-name"
+              autocomplete="family-name" required>
+          </div>
+
+          <div class="field">
+            <label for="phone">Phone (required)</label>
+            <input id="phone" name="phone" type="tel"
+              autocomplete="tel" required>
+          </div>
+
+          <div class="field">
+            <label for="email">Email (required)</label>
+            <input id="email" name="email" type="email"
+              autocomplete="email" required>
+          </div>
+        </div>
+
+        <p style="margin-top: 24px;">
+          By booking a massage with D. Matau Spa Massage, you agree
+          to our booking time, provide accurate heath information
+          and inform us of any medical concerns before your session.
+          By checking, you accept terms of service and Privacy policy,
+          acknowledging that you have read and understood our policy
+          of booking.
+        </p>
+
+        <div class="check-row">
+          <input type="checkbox" id="client-consent"
+            name="client-consent" required>
+          <label for="client-consent">CLIENT CONSENT</label>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>Client Full Consent &amp; Intake Agreement</h2>
+
+        <p>
+          Welcome to D. Matau Spa Massage. Your comfort, safety,
+          privacy, and relaxation are our priority. Please read the
+          following consent form carefully before your massage session.
+        </p>
+
+        <div class="check-row">
+          <input type="checkbox" id="intake-consent"
+            name="intake-consent" required>
+          <label for="intake-consent">Do you agree with this policy?</label>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>Client Photo &amp; Video Recording Consent Form</h2>
+
+        <p>
+          At D. Matau Spa Massage, we love sharing our spa experience
+          and promoting our services. We respect every client's privacy
+          and will only take or share photos, videos, or recording
+          with your permission.
+        </p>
+
+        <div class="check-row">
+          <input type="checkbox" id="photo-consent"
+            name="photo-consent">
+          <label for="photo-consent">Do you agree with this policy?</label>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <div class="field">
+          <label for="experience-rating">Rate Your Experience</label>
+
+          <select id="experience-rating" name="experience-rating">
+            <option value="">Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+      </section>
+
+      <div style="margin-top: 24px;">
+        <button class="btn" type="submit">Book Your Massage</button>
+      </div>
+
+    </form>
+  </main>
+
+  <footer class="site-footer">
+    <p>D. Matau Spa</p>
+  </footer>
 
 </body>
-</html>
+</html> 
