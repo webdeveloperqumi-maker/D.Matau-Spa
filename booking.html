@@ -166,24 +166,45 @@
         <h2>Select Appointment</h2>
 
         <div class="calendar">
-          <h3>November</h3>
+  <div class="calendar-header">
+    <button
+      class="btn btn-light"
+      id="previous-month"
+      type="button"
+      aria-label="Previous month">
+      ‹
+    </button>
 
-          <div id="calendar-grid" class="calendar-grid"></div>
+    <h3 id="calendar-month" aria-live="polite">November 2026</h3>
 
-          <input type="hidden" id="appointment-date" required>
+    <button
+      class="btn btn-light"
+      id="next-month"
+      type="button"
+      aria-label="Next month">
+      ›
+    </button>
+  </div>
 
-          <div class="time-grid" id="time-grid"></div>
+  <div id="calendar-grid" class="calendar-grid"></div>
 
-          <input type="hidden" id="appointment-time" required>
+  <input type="hidden" id="appointment-date">
 
-          <p>Time Zone : SAST (South African Standard Time)</p>
+  <div id="time-grid" class="time-grid"></div>
 
-          <button class="btn btn-light" id="select-appointment"
-            type="button">Select</button>
+  <input type="hidden" id="appointment-time">
 
-          <button class="btn" id="add-appointment"
-            type="button">Add To Appointment</button>
-        </div>
+  <p>Time Zone : SAST (South African Standard Time)</p>
+
+  <button class="btn btn-light" id="select-appointment" type="button">
+    Select
+  </button>
+
+  <button class="btn" id="add-appointment" type="button">
+    Add To Appointment
+  </button>
+</div>
+            
       </section>
 
       <section class="form-section">
