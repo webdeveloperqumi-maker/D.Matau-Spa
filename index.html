@@ -3,216 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>D. Matau Spa</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 
   <style>
-    :root {
-      --background: #fffaf7;
-      --surface: #ffffff;
-      --text: #302722;
-      --muted: #756860;
-      --accent: #8c6556;
-      --accent-hover: #704c40;
-      --border: #eaded7;
-    }
-
     body.dark-mode {
-      --background: #191615;
-      --surface: #272220;
-      --text: #f7eee8;
-      --muted: #c8b9b0;
-      --accent: #c69a85;
-      --accent-hover: #e0b6a0;
-      --border: #463a34;
+      background-color: #20231b;
+      color: #f1f0e8;
     }
 
-    * {
-      box-sizing: border-box;
+    body.dark-mode .site-header,
+    body.dark-mode .site-footer {
+      background-color: #292d22;
+      color: #f1f0e8;
     }
 
-    html {
-      scroll-behavior: smooth;
+    body.dark-mode .site-nav a,
+    body.dark-mode .hero-copy h1,
+    body.dark-mode .hero-copy p {
+      color: #f1f0e8;
     }
 
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--background);
-      color: var(--text);
-      line-height: 1.7;
-      transition: background 0.25s, color 0.25s;
+    body.dark-mode .nav-toggle {
+      color: #f1f0e8;
     }
 
-    a {
-      color: inherit;
-    }
-
-    .site-header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 16px 5%;
-    }
-
-    .nav-wrap {
-      max-width: 1200px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      text-decoration: none;
-      min-width: 150px;
-    }
-
-    .brand img {
-      display: block;
-      width: 150px;
-      max-height: 90px;
-      object-fit: contain;
-    }
-
-    .brand-fallback {
-      display: none;
-      font-family: Georgia, serif;
-      font-size: 22px;
-      font-weight: bold;
-      color: var(--accent);
-    }
-
-    .site-nav {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .site-nav a {
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: bold;
-      letter-spacing: 0.5px;
-    }
-
-    .site-nav a:hover,
-    .site-nav a[aria-current="page"] {
-      color: var(--accent);
-    }
-
-    .hero {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 90px 24px;
-      min-height: 65vh;
-      display: flex;
-      align-items: center;
-    }
-
-    .hero-copy {
-      max-width: 750px;
-    }
-
-    .hero h1 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(34px, 5vw, 58px);
-      font-weight: normal;
-      line-height: 1.2;
-      margin: 0 0 24px;
-    }
-
-    .hero p {
-      max-width: 600px;
-      color: var(--muted);
-      font-size: 17px;
-      margin-bottom: 30px;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 13px 25px;
-      background: var(--accent);
+    body.dark-mode .btn {
+      background-color: #62694b;
       color: #ffffff;
-      text-decoration: none;
-      border-radius: 4px;
-      font-weight: bold;
-      transition: background 0.2s;
-    }
-
-    .btn:hover {
-      background: var(--accent-hover);
-    }
-
-    .site-footer {
-      padding: 24px;
-      text-align: center;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      color: var(--muted);
     }
 
     .theme-controls {
       display: flex;
       justify-content: center;
-      padding: 20px;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
+      padding: 18px;
     }
 
-    .theme-toggle {
-      padding: 11px 20px;
-      border: 1px solid var(--border);
-      border-radius: 25px;
-      background: var(--background);
-      color: var(--text);
+    #theme-toggle {
+      padding: 10px 18px;
+      border: 1px solid #777b61;
+      border-radius: 6px;
+      background: #62694b;
+      color: #ffffff;
       cursor: pointer;
-      font-size: 14px;
+      font: inherit;
     }
 
-    .theme-toggle:hover {
-      border-color: var(--accent);
-    }
-
-    @media (max-width: 700px) {
-      .nav-wrap {
-        justify-content: center;
-      }
-
-      .site-nav {
-        justify-content: center;
-        gap: 12px 18px;
-      }
-
-      .hero {
-        padding: 60px 24px;
-        min-height: 55vh;
-      }
-
-      .hero h1 {
-        font-size: 36px;
-      }
+    #theme-toggle:hover {
+      opacity: 0.85;
     }
   </style>
 </head>
 
 <body>
-
   <header class="site-header">
     <div class="nav-wrap">
-
-      <a class="brand" href="index.html" aria-label="D. Matau Spa home">
+      <a class="brand" href="index.html" aria-label="D. Matau Spa">
         <img
           src="./1f7ad504-b32c-400f-8183-5e3e5c09a8a3.jpeg"
           alt="D. Matau Spa logo"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';"
         >
-        <span class="brand-fallback">D. Matau Spa</span>
+        <span style="display:none;">D. Matau Spa</span>
       </a>
+
+      <button class="nav-toggle" type="button"
+        aria-expanded="false" aria-label="Open navigation">
+        ☰
+      </button>
 
       <nav class="site-nav" aria-label="Main navigation">
         <a href="index.html" aria-current="page">HOME</a>
@@ -221,69 +80,60 @@
         <a href="contact.html">CONTACT</a>
         <a href="cancellation.html">CANCELLATION POLICY</a>
       </nav>
-
     </div>
   </header>
 
   <main>
-    <section class="hero">
+    <section class="container hero">
       <div class="hero-copy">
-
-        <h1>
-          Hi, I'm Dimakatso Wendy Mokhele, a massage Therapist,
-          Founder of D. Matau Spa.
-        </h1>
+        <h1>Hi, I'm Dimakatso Wendy Mokhele, a massage Therapist, Founder of D. Matau Spa.</h1>
 
         <p>
-          I am very passionate about massage therapy and dedicated
-          to helping you release stress, ease tension and feel refreshed.
+          I am very passionate about massage therapy and dedicated to
+          helping you release stress, ease tension and feel refreshed.
         </p>
 
-        <a class="btn" href="booking.html">View Full Service</a>
+        <a class="btn" href="booking.html">View Full service</a>
+      </div>
 
+      <div class="hero-image">
+        <img
+          src="images/dimakatso.jpg"
+          alt="Dimakatso Wendy Mokhele"
+          onerror="this.parentElement.style.display='none';"
+        >
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>&copy; <span id="year"></span> D. Matau Spa. All rights reserved.</p>
+    <p>D. Matau Spa</p>
   </footer>
 
   <div class="theme-controls">
-    <button
-      class="theme-toggle"
-      id="themeToggle"
-      type="button"
-      aria-label="Switch colour theme"
-    >
+    <button id="theme-toggle" type="button" aria-pressed="false">
       🌙 Dark Mode
     </button>
   </div>
 
   <script>
-    // Display the current year.
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
-
-    // Restore the visitor's saved theme.
-    const themeToggle = document.getElementById("themeToggle");
-
-    function updateThemeButton() {
-      const darkMode = document.body.classList.contains("dark-mode");
-      themeToggle.textContent = darkMode ? "☀️ Light Mode" : "🌙 Dark Mode";
-    }
+    const themeButton = document.getElementById("theme-toggle");
 
     try {
       if (localStorage.getItem("dmatau-theme") === "dark") {
         document.body.classList.add("dark-mode");
       }
-    } catch (error) {
-      // The toggle still works if browser storage is unavailable.
+    } catch (error) {}
+
+    function updateThemeButton() {
+      const isDark = document.body.classList.contains("dark-mode");
+      themeButton.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+      themeButton.setAttribute("aria-pressed", String(isDark));
     }
 
     updateThemeButton();
 
-    themeToggle.addEventListener("click", function () {
+    themeButton.addEventListener("click", function () {
       document.body.classList.toggle("dark-mode");
 
       try {
@@ -291,13 +141,10 @@
           "dmatau-theme",
           document.body.classList.contains("dark-mode") ? "dark" : "light"
         );
-      } catch (error) {
-        // Theme switching still works without browser storage.
-      }
+      } catch (error) {}
 
       updateThemeButton();
     });
   </script>
-
 </body>
 </html>
