@@ -4,10 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>D. Matau Spa</title>
+
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 
   <style>
+    /* Dark mode additions; original olive-green styling remains in style.css. */
     body.dark-mode {
       background-color: #20231b;
       color: #f1f0e8;
@@ -59,17 +61,20 @@
 <body>
   <header class="site-header">
     <div class="nav-wrap">
+
       <a class="brand" href="index.html" aria-label="D. Matau Spa">
         <img
           src="./1f7ad504-b32c-400f-8183-5e3e5c09a8a3.jpeg"
           alt="D. Matau Spa logo"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';"
         >
-        <span style="display:none;">D. Matau Spa</span>
       </a>
 
-      <button class="nav-toggle" type="button"
-        aria-expanded="false" aria-label="Open navigation">
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-label="Open navigation"
+      >
         ☰
       </button>
 
@@ -80,13 +85,17 @@
         <a href="contact.html">CONTACT</a>
         <a href="cancellation.html">CANCELLATION POLICY</a>
       </nav>
+
     </div>
   </header>
 
   <main>
     <section class="container hero">
       <div class="hero-copy">
-        <h1>Hi, I'm Dimakatso Wendy Mokhele, a massage Therapist, Founder of D. Matau Spa.</h1>
+        <h1>
+          Hi, I'm Dimakatso Wendy Mokhele, a massage Therapist,
+          Founder of D. Matau Spa.
+        </h1>
 
         <p>
           I am very passionate about massage therapy and dedicated to
@@ -97,11 +106,7 @@
       </div>
 
       <div class="hero-image">
-        <img
-          src="images/dimakatso.jpg"
-          alt="Dimakatso Wendy Mokhele"
-          onerror="this.parentElement.style.display='none';"
-        >
+        <img src="images/dimakatso.jpg" alt="">
       </div>
     </section>
   </main>
@@ -127,7 +132,11 @@
 
     function updateThemeButton() {
       const isDark = document.body.classList.contains("dark-mode");
-      themeButton.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+
+      themeButton.textContent = isDark
+        ? "☀️ Light Mode"
+        : "🌙 Dark Mode";
+
       themeButton.setAttribute("aria-pressed", String(isDark));
     }
 
@@ -139,7 +148,9 @@
       try {
         localStorage.setItem(
           "dmatau-theme",
-          document.body.classList.contains("dark-mode") ? "dark" : "light"
+          document.body.classList.contains("dark-mode")
+            ? "dark"
+            : "light"
         );
       } catch (error) {}
 
