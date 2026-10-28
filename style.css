@@ -524,3 +524,40 @@ input[type="checkbox"] {
     transition: none !important;
   }
 }
+
+/* MOBILE NAVIGATION */
+@media screen and (max-width: 768px) {
+
+    .nav-toggle {
+        display: none !important;
+    }
+
+    .site-nav {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        gap: 16px;
+        position: static;
+        height: auto;
+        padding: 15px 0;
+        background: transparent;
+        visibility: visible;
+        opacity: 1;
+        transform: none;
+    }
+
+    .site-nav a {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .nav-wrap {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
