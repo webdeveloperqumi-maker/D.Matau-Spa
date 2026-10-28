@@ -561,3 +561,24 @@ input[type="checkbox"] {
         justify-content: center;
     }
 }
+
+/* LOGO DISPLAY FIX */
+.site-header .brand {
+display: inline-flex !important;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+width: auto;
+height: auto;
+overflow: visible;
+}
+
+.site-header .brand img {
+display: block !important;
+visibility: visible !important;
+opacity: 1 !important;
+width: 150px;
+height: auto;
+max-width: 100%;
+object-fit: contain;
+}
