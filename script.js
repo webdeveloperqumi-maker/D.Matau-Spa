@@ -1,15 +1,8 @@
+
 "use strict";
 
-document.addEventListener("DOMContentLoaded", function () {
-  setupMobileMenu();
-  setupMassageSelection();
-  setupAddOns();
-  setupCalendar();
-  setupBookingForm();
-});
-
 /* ==================================
-   1. SPA SETTINGS
+   D. MATAU SPA — COMPLETE SCRIPT
 ================================== */
 
 const WHATSAPP_NUMBER = "27846558531";
@@ -30,8 +23,16 @@ let selectedService = "";
 let selectedDate = "";
 let selectedTime = "";
 
+document.addEventListener("DOMContentLoaded", function () {
+  setupMobileMenu();
+  setupMassageSelection();
+  setupAddOns();
+  setupCalendar();
+  setupBookingForm();
+});
+
 /* ==================================
-   2. MOBILE NAVIGATION
+   1. MOBILE NAVIGATION
 ================================== */
 
 function setupMobileMenu() {
@@ -69,7 +70,7 @@ function setupMobileMenu() {
 }
 
 /* ==================================
-   3. MASSAGE SELECTION
+   2. MASSAGE SELECTION
 ================================== */
 
 function setupMassageSelection() {
@@ -78,7 +79,6 @@ function setupMassageSelection() {
   if (serviceSelect) {
     serviceSelect.addEventListener("change", function () {
       selectedService = serviceSelect.value;
-
       resetAddOns();
       updateAddOnAvailability();
       calculateTotal();
@@ -102,29 +102,24 @@ function setupMassageSelection() {
       updateAddOnAvailability();
       calculateTotal();
 
-      const form = document.getElementById("booking-form");
-
-      if (form) {
-        form.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-      }
+      document.getElementById("booking-form")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
     });
   });
 }
 
 /* ==================================
-   4. ADD-ONS
+   3. ADD-ONS
 ================================== */
 
 function setupAddOns() {
   ["hot-stones", "foot-scrub"].forEach(function (id) {
-    const checkbox = document.getElementById(id);
-
-    if (checkbox) {
-      checkbox.addEventListener("change", calculateTotal);
-    }
+    document.getElementById(id)?.addEventListener(
+      "change",
+      calculateTotal
+    );
   });
 
   updateAddOnAvailability();
@@ -134,7 +129,6 @@ function setupAddOns() {
 function resetAddOns() {
   ["hot-stones", "foot-scrub"].forEach(function (id) {
     const checkbox = document.getElementById(id);
-
     if (checkbox) checkbox.checked = false;
   });
 }
@@ -145,20 +139,22 @@ function updateAddOnAvailability() {
 
   if (hotStones) {
     hotStones.disabled = !["deep", "swedish"].includes(selectedService);
-
     if (hotStones.disabled) hotStones.checked = false;
   }
 
   if (footScrub) {
     footScrub.disabled = selectedService !== "swedish";
-
     if (footScrub.disabled) footScrub.checked = false;
   }
 }
 
 /* ==================================
-   5. PRICE CALCULATOR
+   4. PRICE CALCULATOR
 ================================== */
+
+function formatMoney(amount) {
+  return "R" + Number(amount).toLocaleString("en-ZA");
+}
 
 function calculateTotal() {
   let total = SERVICES[selectedService]?.price || 0;
@@ -174,29 +170,22 @@ function calculateTotal() {
     total += ADD_ON_PRICES["foot-scrub"];
   }
 
-  const totalDisplay = document.getElementById("booking-total");
+  const display = document.getElementById("booking-total");
   const hiddenTotal = document.getElementById("booking-total-value");
 
-  if (totalDisplay) {
-    totalDisplay.textContent = formatMoney(total);
-  }
-
+  if (display) display.textContent = formatMoney(total);
   if (hiddenTotal) hiddenTotal.value = String(total);
 
   return total;
 }
 
-function formatMoney(amount) {
-  return "R" + Number(amount).toLocaleString("en-ZA");
-}
-
 /* ==================================
-   6. APPOINTMENT CALENDAR
+   5. APPOINTMENT CALENDAR
 ================================== */
 
 function setupCalendar() {
   const calendar = document.getElementById("calendar-grid");
-  const monthHeading = document.getElementById("calendar-month");
+  const heading = document.getElementById("calendar-month");
   const previous = document.getElementById("previous-month");
   const next = document.getElementById("next-month");
   const dateInput = document.getElementById("appointment-date");
@@ -205,7 +194,7 @@ function setupCalendar() {
   const selectButton = document.getElementById("select-appointment");
   const addButton = document.getElementById("add-appointment");
 
-  if (!calendar || !monthHeading || !previous || !next) return;
+  if (!calendar || !heading || !previous || !next) return;
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -214,36 +203,40 @@ function setupCalendar() {
   let month = today.getMonth();
 
   const times = [
-    "10:00 am", "10:30 am",
-    "11:00 am", "11:30 am",
-    "2:00 pm", "2:30 pm",
-    "3:00 pm", "3:30 pm"
+    "10:00 am",
+    "10:30 am",
+    "11:00 am",
+    "11:30 am",
+    "2:00 pm",
+    "2:30 pm",
+    "3:00 pm",
+    "3:30 pm"
   ];
 
   function formatDate(date) {
-    const y = date.getFullYear();
-    const m = String(date.getMonth() + 1).padStart(2, "0");
-    const d = String(date.getDate()).padStart(2, "0");
-
-    return `${y}-${m}-${d}`;
+    return [
+      date.getFullYear(),
+      String(date.getMonth() + 1).padStart(2, "0"),
+      String(date.getDate()).padStart(2, "0")
+    ].join("-");
   }
 
   function renderCalendar() {
     calendar.innerHTML = "";
 
-    monthHeading.textContent = new Date(year, month, 1)
-      .toLocaleDateString("en-ZA", {
-        month: "long",
-        year: "numeric"
-      });
+    heading.textContent = new Date(year, month, 1).toLocaleDateString(
+      "en-ZA",
+      { month: "long", year: "numeric" }
+    );
 
-    ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-      .forEach(function (day) {
-        const heading = document.createElement("div");
-        heading.textContent = day;
-        heading.className = "calendar-day-name";
-        calendar.appendChild(heading);
-      });
+    ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].forEach(
+      function (day) {
+        const item = document.createElement("div");
+        item.className = "calendar-day-name";
+        item.textContent = day;
+        calendar.appendChild(item);
+      }
+    );
 
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -262,9 +255,12 @@ function setupCalendar() {
       const button = document.createElement("button");
 
       button.type = "button";
-      button.textContent = String(day);
       button.className = "calendar-date";
-      button.setAttribute("aria-pressed", String(dateString === selectedDate));
+      button.textContent = String(day);
+      button.setAttribute(
+        "aria-pressed",
+        String(dateString === selectedDate)
+      );
 
       if (date < today) button.disabled = true;
 
@@ -308,15 +304,16 @@ function setupCalendar() {
       button.type = "button";
       button.className = "time-option";
       button.textContent = time;
-      button.setAttribute("aria-pressed", String(time === selectedTime));
+      button.setAttribute(
+        "aria-pressed",
+        String(time === selectedTime)
+      );
 
       if (time === selectedTime) button.classList.add("selected");
 
       button.addEventListener("click", function () {
         selectedTime = time;
-
         if (timeInput) timeInput.value = selectedTime;
-
         renderTimes();
       });
 
@@ -354,8 +351,8 @@ function setupCalendar() {
       }
 
       alert(
-        "Appointment selected: " +
-        formatDisplayDate(selectedDate) + " at " + selectedTime + "."
+        "Selected: " + formatDisplayDate(selectedDate) +
+        " at " + selectedTime
       );
     });
   }
@@ -367,23 +364,14 @@ function setupCalendar() {
         return;
       }
 
-      const form = document.getElementById("booking-form");
-      const information = document.querySelector(
-        'label[for="first-name"]'
-      );
+      document.getElementById("first-name")?.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
 
-      if (information) {
-        information.scrollIntoView({
-          behavior: "smooth",
-          block: "center"
-        });
-
-        document.getElementById("first-name")?.focus({
-          preventScroll: true
-        });
-      } else if (form) {
-        form.scrollIntoView({ behavior: "smooth" });
-      }
+      document.getElementById("first-name")?.focus({
+        preventScroll: true
+      });
     });
   }
 
@@ -404,20 +392,17 @@ function formatDisplayDate(dateString) {
 }
 
 /* ==================================
-   7. BOOKING FORM
+   6. BOOKING FORM + WHATSAPP
 ================================== */
 
 function setupBookingForm() {
   const form = document.getElementById("booking-form");
-
   if (!form) return;
 
   form.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    // Read the service directly from the form.
     const serviceSelect = document.getElementById("service");
-
     if (serviceSelect) selectedService = serviceSelect.value;
 
     if (!SERVICES[selectedService]) {
@@ -426,7 +411,6 @@ function setupBookingForm() {
       return;
     }
 
-    // Read the selected calendar values.
     selectedDate =
       document.getElementById("appointment-date")?.value || selectedDate;
 
@@ -469,7 +453,7 @@ function setupBookingForm() {
     }
 
     if (intakeConsent && !intakeConsent.checked) {
-      alert("Please confirm that you agree to the intake agreement.");
+      alert("Please accept the intake agreement.");
       intakeConsent.focus();
       return;
     }
@@ -488,10 +472,8 @@ function setupBookingForm() {
     }
 
     if (selectedService === "reflexology") {
-      addOns.push("Feet scrub included");
+      addOns.push("Foot scrub included");
     }
-
-    const total = calculateTotal();
 
     const booking = {
       firstName,
@@ -499,9 +481,8 @@ function setupBookingForm() {
       phone,
       email,
       service: SERVICES[selectedService].name,
-      serviceKey: selectedService,
       addOns,
-      total,
+      total: calculateTotal(),
       date: selectedDate,
       time: selectedTime
     };
@@ -509,14 +490,14 @@ function setupBookingForm() {
     const message = [
       "D. MATAU SPA — APPOINTMENT REQUEST",
       "",
-      `Client: ${booking.firstName} ${booking.lastName}`,
-      `Phone: ${booking.phone}`,
-      `Email: ${booking.email}`,
-      `Treatment: ${booking.service}`,
-      `Add-ons: ${booking.addOns.join(", ") || "None"}`,
-      `Total: ${formatMoney(booking.total)}`,
-      `Date: ${formatDisplayDate(booking.date)}`,
-      `Time: ${booking.time}`,
+      "Client: " + booking.firstName + " " + booking.lastName,
+      "Phone: " + booking.phone,
+      "Email: " + booking.email,
+      "Treatment: " + booking.service,
+      "Add-ons: " + (booking.addOns.join(", ") || "None"),
+      "Total: " + formatMoney(booking.total),
+      "Date: " + formatDisplayDate(booking.date),
+      "Time: " + booking.time,
       "",
       "Please confirm availability for this appointment."
     ].join("\n");
@@ -525,34 +506,35 @@ function setupBookingForm() {
       "https://wa.me/" + WHATSAPP_NUMBER +
       "?text=" + encodeURIComponent(message);
 
-    // Show the confirmation slip on this page.
+    // Display the slip before opening WhatsApp.
     showConfirmationSlip(booking);
 
-    // Open WhatsApp separately so the slip stays available to print.
+    // Navigate to WhatsApp in a new tab/window.
+    const fallback = document.getElementById("whatsapp-fallback");
+
+    if (fallback) {
+      fallback.href = whatsappURL;
+      fallback.hidden = false;
+    }
+
     const whatsappWindow = window.open(
       whatsappURL,
       "_blank",
       "noopener,noreferrer"
     );
 
+    // Keep the confirmation slip on this page if popups are blocked.
     if (!whatsappWindow) {
-      const fallback = document.getElementById("whatsapp-fallback");
-
-      if (fallback) {
-        fallback.hidden = false;
-        fallback.href = whatsappURL;
-      }
-
       alert(
-        "Your confirmation slip is ready. If WhatsApp did not open, " +
-        "tap the WhatsApp booking link shown on the page."
+        "Your appointment request slip is ready. " +
+        "If WhatsApp did not open, use the WhatsApp link below the slip."
       );
     }
   });
 }
 
 /* ==================================
-   8. ONE-PAGE APPOINTMENT SLIP
+   7. CONFIRMATION SLIP
 ================================== */
 
 function showConfirmationSlip(booking) {
@@ -589,19 +571,27 @@ function showConfirmationSlip(booking) {
 
       <div class="slip-rule"></div>
 
-      <p class="slip-status">
-        APPOINTMENT REQUEST CREATED
-      </p>
+      <p class="slip-status">APPOINTMENT REQUEST CREATED</p>
 
       <p class="slip-note">
-        Your request has been prepared. Please wait for the spa to
-        confirm the appointment through WhatsApp.
+        This slip records your appointment request. Please wait for
+        D. Matau Spa to confirm availability through WhatsApp.
       </p>
 
       <dl class="slip-details">
         <div>
-          <dt>Client</dt>
+          <dt>Client name</dt>
           <dd>${escapeHTML(booking.firstName)} ${escapeHTML(booking.lastName)}</dd>
+        </div>
+
+        <div>
+          <dt>Phone number</dt>
+          <dd>${escapeHTML(booking.phone)}</dd>
+        </div>
+
+        <div>
+          <dt>Email address</dt>
+          <dd>${escapeHTML(booking.email)}</dd>
         </div>
 
         <div>
@@ -623,11 +613,6 @@ function showConfirmationSlip(booking) {
           <dt>Additional treatments</dt>
           <dd>${escapeHTML(addOnsText)}</dd>
         </div>
-
-        <div>
-          <dt>Contact</dt>
-          <dd>${escapeHTML(booking.phone)}<br>${escapeHTML(booking.email)}</dd>
-        </div>
       </dl>
 
       <div class="slip-total">
@@ -637,7 +622,8 @@ function showConfirmationSlip(booking) {
 
       <p class="slip-footer">
         Thank you for choosing D. Matau Spa.<br>
-        We look forward to helping you unwind.
+        We look forward to helping you unwind.<br>
+        <strong>See you there!</strong>
       </p>
 
       <div class="slip-actions no-print">
@@ -673,7 +659,10 @@ function showConfirmationSlip(booking) {
   });
 }
 
-/* Escape customer-provided text before inserting it into HTML. */
+/* ==================================
+   8. SAFE TEXT OUTPUT
+================================== */
+
 function escapeHTML(value) {
   return String(value).replace(/[&<>"']/g, function (character) {
     const entities = {
