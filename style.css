@@ -582,109 +582,107 @@ height: auto;
 max-width: 100%;
 object-fit: contain;
 }
-/* FLOATING LIQUID GLASS HAMBURGER */
+/* MOBILE LIQUID GLASS NAVIGATION */
 
-.nav-toggle {
-  position: fixed;
-  top: 24px;
-  right: 22px;
-  z-index: 1001;
+/* Desktop: normal navigation, no floating bubble */
+@media (min-width: 769px) {
+  .nav-toggle {
+    display: none !important;
+  }
 
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 27px;
-  line-height: 1;
-
-  color: #fffdf5;
-  cursor: pointer;
-
-  border: 1px solid rgba(255, 255, 255, 0.65);
-
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.48),
-    rgba(255, 255, 255, 0.12) 45%,
-    rgba(94, 105, 66, 0.42)
-  );
-
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-
-  box-shadow:
-    inset 0 2px 5px rgba(255, 255, 255, 0.65),
-    inset 0 -5px 10px rgba(73, 83, 49, 0.18),
-    0 8px 25px rgba(55, 59, 39, 0.18);
-
-  animation: liquid-float 4s ease-in-out infinite,
-             liquid-shift 7s ease-in-out infinite;
-
-  transition:
-    transform 0.3s ease,
-    background 0.5s ease,
-    box-shadow 0.3s ease;
+  .site-nav {
+    display: flex;
+  }
 }
 
-.nav-toggle:hover {
-  transform: scale(1.08);
+/* Mobile: floating glass hamburger */
+@media (max-width: 768px) {
+  .nav-toggle {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 1002;
 
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.65),
-    rgba(255, 255, 255, 0.22),
-    rgba(94, 105, 66, 0.58)
-  );
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    border-radius: 50%;
 
-  box-shadow:
-    inset 0 2px 7px rgba(255, 255, 255, 0.8),
-    0 10px 30px rgba(55, 59, 39, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 26px;
+    color: #fffdf5;
+    cursor: pointer;
+
+    background: rgba(112, 123, 79, 0.30);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+
+    box-shadow:
+      inset 0 2px 5px rgba(255, 255, 255, 0.65),
+      inset 0 -3px 8px rgba(75, 87, 51, 0.15),
+      0 8px 24px rgba(57, 62, 41, 0.15);
+
+    animation: glass-float 4s ease-in-out infinite;
+  }
+
+  /* Remove the large mobile navigation box */
+  .site-nav {
+    display: none;
+    position: fixed;
+    top: 90px;
+    right: 18px;
+    z-index: 1001;
+
+    width: auto;
+    max-width: calc(100vw - 36px);
+    padding: 18px;
+
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+
+    background: rgba(246, 243, 232, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 22px;
+
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    backdrop-filter: blur(24px) saturate(150%);
+
+    box-shadow: 0 12px 32px rgba(50, 55, 35, 0.15);
+  }
+
+  /* Show the menu only when the hamburger is opened */
+  .site-nav.is-open {
+    display: flex;
+  }
+
+  .site-nav a {
+    color: #535b3e;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .site-nav a:hover {
+    color: #7b8758;
+  }
 }
 
-.nav-toggle[aria-expanded="true"] {
-  background: linear-gradient(
-    145deg,
-    rgba(94, 105, 66, 0.85),
-    rgba(255, 255, 255, 0.3)
-  );
-}
-
-@keyframes liquid-float {
+@keyframes glass-float {
   0%, 100% {
     transform: translateY(0);
   }
 
   50% {
-    transform: translateY(-9px);
+    transform: translateY(-5px);
   }
 }
 
-@keyframes liquid-shift {
-  0%, 100% {
-    border-color: rgba(255, 255, 255, 0.65);
-  }
-
-  50% {
-    border-color: rgba(104, 117, 75, 0.75);
-  }
-}
-
-/* Keep the floating sphere accessible on smaller screens. */
-@media (max-width: 600px) {
-  .nav-toggle {
-    top: 18px;
-    right: 16px;
-    width: 58px;
-    height: 58px;
-    font-size: 25px;
-  }
-}
-
-/* Respect visitors who prefer reduced motion. */
 @media (prefers-reduced-motion: reduce) {
   .nav-toggle {
     animation: none;
