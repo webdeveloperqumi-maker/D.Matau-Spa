@@ -867,3 +867,207 @@ input[type="checkbox"] {
     display: none !important;
   }
 }
+
+/* ==================================
+   APPOINTMENT CONFIRMATION SLIP
+================================== */
+
+.appointment-confirmation {
+  display: block;
+  width: 100%;
+  max-width: 760px;
+  margin: 40px auto;
+  padding: 32px;
+  background: #F5F0E7;
+  color: #39392F;
+  border: 1px solid #C4B9A7;
+  box-sizing: border-box;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.appointment-confirmation .slip-inner {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.appointment-confirmation .slip-eyebrow {
+  color: #555B3E;
+  text-align: center;
+  letter-spacing: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.appointment-confirmation h2 {
+  color: #555B3E;
+  text-align: center;
+  font-size: 28px;
+  margin: 12px 0;
+}
+
+.appointment-confirmation .slip-subtitle,
+.appointment-confirmation .slip-footer {
+  text-align: center;
+  line-height: 1.7;
+}
+
+.appointment-confirmation .slip-subtitle {
+  color: #77715F;
+  font-style: italic;
+}
+
+.appointment-confirmation .slip-rule {
+  height: 1px;
+  background: #C4B9A7;
+  margin: 24px 0;
+}
+
+.appointment-confirmation .slip-status {
+  text-align: center;
+  color: #555B3E;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  font-size: 12px;
+}
+
+.appointment-confirmation .slip-note {
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.appointment-confirmation .slip-details {
+  margin: 24px 0;
+}
+
+.appointment-confirmation .slip-details > div {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #D9D0C3;
+  overflow-wrap: anywhere;
+}
+
+.appointment-confirmation .slip-details dt {
+  color: #555B3E;
+  font-weight: bold;
+}
+
+.appointment-confirmation .slip-details dd {
+  margin: 0;
+}
+
+.appointment-confirmation .slip-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px;
+  background: #E8E0D3;
+  color: #555B3E;
+  gap: 12px;
+}
+
+.appointment-confirmation .slip-total strong {
+  font-size: 22px;
+}
+
+.appointment-confirmation .slip-footer {
+  color: #555B3E;
+  margin-top: 28px;
+  font-size: 16px;
+}
+
+.appointment-confirmation .slip-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.appointment-confirmation .slip-actions [hidden] {
+  display: none !important;
+}
+
+@media screen and (max-width: 600px) {
+  .appointment-confirmation {
+    padding: 20px 16px;
+  }
+
+  .appointment-confirmation h2 {
+    font-size: 23px;
+  }
+
+  .appointment-confirmation .slip-details > div {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+}
+
+/* Print only the appointment slip */
+@page {
+  size: A4 portrait;
+  margin: 12mm;
+}
+
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+
+  #appointment-confirmation,
+  #appointment-confirmation * {
+    visibility: visible !important;
+  }
+
+  #appointment-confirmation {
+    display: block !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 8mm !important;
+    border: 1px solid #C4B9A7 !important;
+    background: #F5F0E7 !important;
+    color: #39392F !important;
+    box-sizing: border-box !important;
+    font-size: 10pt !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  #appointment-confirmation .slip-inner {
+    max-width: none !important;
+  }
+
+  #appointment-confirmation h2 {
+    font-size: 21pt !important;
+    margin: 8px 0 !important;
+  }
+
+  #appointment-confirmation .slip-rule {
+    margin: 14px 0 !important;
+  }
+
+  #appointment-confirmation .slip-details {
+    margin: 14px 0 !important;
+  }
+
+  #appointment-confirmation .slip-details > div {
+    padding: 8px 0 !important;
+    break-inside: avoid;
+  }
+
+  #appointment-confirmation .slip-footer {
+    margin-top: 18px !important;
+  }
+
+  #appointment-confirmation .no-print,
+  .site-header,
+  .site-footer {
+    display: none !important;
+  }
+}
