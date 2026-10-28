@@ -656,3 +656,214 @@ input[type="checkbox"] {
     animation: none;
   }
 }
+/* OLIVE GREEN MOBILE NAVIGATION */
+
+@media (max-width: 760px) {
+  .site-header .site-nav {
+    background: rgba(85, 91, 62, 0.97) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 16px 35px rgba(40, 45, 28, 0.28) !important;
+  }
+
+  .site-header .site-nav a {
+    color: #f5f0e5 !important;
+  }
+
+  .site-header .site-nav a:hover,
+  .site-header .site-nav a[aria-current="page"] {
+    background: rgba(255, 255, 255, 0.12) !important;
+    color: #ffffff !important;
+  }
+
+  .nav-toggle {
+    color: #ffffff !important;
+    background: rgba(85, 91, 62, 0.88) !important;
+  }
+}
+
+/* APPOINTMENT CONFIRMATION SLIP */
+
+.appointment-confirmation {
+  max-width: 760px;
+  margin: 40px auto;
+  padding: 24px;
+  color: #555B3E;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.slip-inner {
+  padding: clamp(24px, 5vw, 48px);
+  background: #C4B9A7;
+  border: 1px solid rgba(85, 91, 62, 0.55);
+  outline: 1px solid rgba(85, 91, 62, 0.2);
+  outline-offset: -8px;
+  box-shadow: 0 16px 40px rgba(85, 91, 62, 0.14);
+}
+
+.slip-eyebrow,
+.slip-status {
+  font-family: Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: bold;
+  letter-spacing: 0.17em;
+  text-align: center;
+}
+
+.slip-inner h2 {
+  margin: 12px 0;
+  color: #555B3E;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  text-align: center;
+}
+
+.slip-subtitle,
+.slip-footer {
+  text-align: center;
+  font-style: italic;
+}
+
+.slip-rule {
+  height: 1px;
+  margin: 24px 0;
+  background: #555B3E;
+  opacity: 0.6;
+}
+
+.slip-note {
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.slip-details {
+  margin: 28px 0;
+}
+
+.slip-details > div {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.8fr) 1.2fr;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(85, 91, 62, 0.25);
+}
+
+.slip-details dt {
+  font-family: Arial, sans-serif;
+  font-size: 0.82rem;
+  font-weight: bold;
+}
+
+.slip-details dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.slip-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+  border-top: 2px solid #555B3E;
+  border-bottom: 2px solid #555B3E;
+}
+
+.slip-total strong {
+  font-size: 1.4rem;
+}
+
+.slip-footer {
+  margin-top: 28px;
+  line-height: 1.8;
+}
+
+.slip-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.slip-actions [hidden] {
+  display: none !important;
+}
+
+@media (max-width: 480px) {
+  .appointment-confirmation {
+    padding: 12px;
+  }
+
+  .slip-details > div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+
+/* PRINT ONLY THE CONFIRMATION SLIP ON ONE PAGE */
+
+@page {
+  size: A4;
+  margin: 12mm;
+}
+
+@media print {
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #555B3E !important;
+    font-family: Georgia, "Times New Roman", serif !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  body * {
+    visibility: hidden !important;
+  }
+
+  #appointment-confirmation,
+  #appointment-confirmation * {
+    visibility: visible !important;
+  }
+
+  #appointment-confirmation {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  #appointment-confirmation .slip-inner {
+    padding: 12mm !important;
+    border: 1px solid #555B3E !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    background: #C4B9A7 !important;
+  }
+
+  #appointment-confirmation .slip-details {
+    margin: 16px 0 !important;
+  }
+
+  #appointment-confirmation .slip-details > div {
+    padding: 7px 0 !important;
+  }
+
+  #appointment-confirmation .slip-rule {
+    margin: 14px 0 !important;
+  }
+
+  #appointment-confirmation .slip-footer {
+    margin-top: 18px !important;
+  }
+
+  #appointment-confirmation .no-print {
+    display: none !important;
+  }
+}
