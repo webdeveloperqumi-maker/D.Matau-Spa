@@ -1,22 +1,33 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Book your massage session at D. Matau Spa. Explore our massage treatments, select add-ons and request your appointment.">
   <title>Book Your Session / Services — D. Matau Spa</title>
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
+
 <body>
 
   <header class="site-header">
     <div class="nav-wrap">
+
       <a class="brand" href="index.html" aria-label="D. Matau Spa">
-        <img src="./1f7ad504-bc32-400f-8183-5e3e5c09a8a3.jpeg" alt="D. Matau Spa logo">
+        <img
+          src="./1f7ad504-bc32-400f-8183-5e3e5c09a8a3.jpeg"
+          alt="D. Matau Spa logo"
+        >
       </a>
 
-      <button class="nav-toggle" type="button"
-        aria-expanded="false" aria-label="Open navigation">
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-label="Open navigation"
+      >
         ☰
       </button>
 
@@ -27,12 +38,16 @@
         <a href="contact.html">CONTACT</a>
         <a href="cancellation.html">CANCELLATION POLICY</a>
       </nav>
+
     </div>
   </header>
 
   <main class="container section">
 
+    <!-- PAGE INTRODUCTION -->
+
     <section class="section-heading">
+
       <h1>Book Your Spot (Book Your Session / Appointment)</h1>
 
       <h2>Your relaxation is our priority.</h2>
@@ -45,18 +60,23 @@
         help you feel refreshed and renewed. Choose your preferred
         massage from our massage catalogue and book your session.
       </p>
+
     </section>
 
     <div class="photo-frame" style="margin-bottom: 40px;">
-      <img src="images/spa-bed.jpg" alt="">
+      <img src="images/spa-bed.jpg" alt="Relaxing spa treatment room">
     </div>
 
+    <!-- MASSAGE SERVICES -->
+
     <section id="services">
+
       <h2>Massage Therapy</h2>
 
       <div class="card-grid">
 
         <article class="card">
+
           <h3>Deep Tissue Massage</h3>
 
           <p>
@@ -68,11 +88,18 @@
           <p class="card-price">60 minutes R1000</p>
           <p>Hot stones (+R150)</p>
 
-          <button class="btn service-select" type="button"
-            data-service="deep">Select</button>
+          <button
+            class="btn service-select"
+            type="button"
+            data-service="deep"
+          >
+            Select
+          </button>
+
         </article>
 
         <article class="card">
+
           <h3>Swedish massage</h3>
 
           <p>
@@ -86,11 +113,18 @@
           <p>Hot stones (+R150)</p>
           <p>Foot scrubbing (+R200)</p>
 
-          <button class="btn service-select" type="button"
-            data-service="swedish">Select</button>
+          <button
+            class="btn service-select"
+            type="button"
+            data-service="swedish"
+          >
+            Select
+          </button>
+
         </article>
 
         <article class="card">
+
           <h3>Aromatherapy massage</h3>
 
           <p>
@@ -103,11 +137,18 @@
 
           <p class="card-price">60 minutes R850</p>
 
-          <button class="btn service-select" type="button"
-            data-service="aroma">Select</button>
+          <button
+            class="btn service-select"
+            type="button"
+            data-service="aroma"
+          >
+            Select
+          </button>
+
         </article>
 
         <article class="card">
+
           <h3>Reflexology massage</h3>
 
           <p>
@@ -118,141 +159,265 @@
             (head and neck reflex areas, chest area and pelvic are).
           </p>
 
-          <p class="card-price">60 minutes R1200 + including Feet scrub.</p>
+          <p class="card-price">
+            60 minutes R1200 + including Feet scrub.
+          </p>
 
-          <button class="btn service-select" type="button"
-            data-service="reflexology">Select</button>
+          <button
+            class="btn service-select"
+            type="button"
+            data-service="reflexology"
+          >
+            Select
+          </button>
+
         </article>
 
       </div>
+
     </section>
+
+    <!-- BOOKING FORM -->
 
     <form id="booking-form">
 
+      <!-- ADD-ONS -->
+
       <section class="form-section">
+
         <h2>Add-Ons</h2>
 
         <div class="field">
+
           <label for="service">Massage Therapy</label>
 
           <select id="service" name="service" required>
+
             <option value="">Select</option>
             <option value="deep">Deep Tissue Massage</option>
             <option value="swedish">Swedish massage</option>
             <option value="aroma">Aromatherapy massage</option>
             <option value="reflexology">Reflexology massage</option>
+
           </select>
+
         </div>
 
         <div class="check-row">
-          <input type="checkbox" id="hot-stones" name="hot-stones">
+
+          <input
+            type="checkbox"
+            id="hot-stones"
+            name="hot-stones"
+          >
+
           <label for="hot-stones">Hot stones (+R150)</label>
+
         </div>
 
         <div class="check-row">
-          <input type="checkbox" id="foot-scrub" name="foot-scrub">
+
+          <input
+            type="checkbox"
+            id="foot-scrub"
+            name="foot-scrub"
+          >
+
           <label for="foot-scrub">Foot scrubbing (+R200)</label>
+
         </div>
 
         <div class="total-line">
+
           <span>Total</span>
           <output id="booking-total">R0</output>
+
         </div>
 
-        <input type="hidden" id="booking-total-value" value="0">
+        <input
+          type="hidden"
+          id="booking-total-value"
+          value="0"
+        >
+
       </section>
 
+      <!-- APPOINTMENT CALENDAR -->
+
       <section class="form-section">
+
         <h2>Select Appointment</h2>
 
         <div class="calendar">
-  <div class="calendar-header">
-    <button
-      class="btn btn-light"
-      id="previous-month"
-      type="button"
-      aria-label="Previous month">
-      ‹
-    </button>
 
-    <h3 id="calendar-month" aria-live="polite">November 2026</h3>
+          <div class="calendar-header">
 
-    <button
-      class="btn btn-light"
-      id="next-month"
-      type="button"
-      aria-label="Next month">
-      ›
-    </button>
-  </div>
+            <button
+              class="btn btn-light"
+              id="previous-month"
+              type="button"
+              aria-label="Previous month"
+            >
+              ‹
+            </button>
 
-  <div id="calendar-grid" class="calendar-grid"></div>
+            <h3 id="calendar-month" aria-live="polite">
+              November 2026
+            </h3>
 
-  <input type="hidden" id="appointment-date">
+            <button
+              class="btn btn-light"
+              id="next-month"
+              type="button"
+              aria-label="Next month"
+            >
+              ›
+            </button>
 
-  <div id="time-grid" class="time-grid"></div>
+          </div>
 
-  <input type="hidden" id="appointment-time">
+          <div
+            id="calendar-grid"
+            class="calendar-grid"
+            aria-label="Choose an appointment date"
+          ></div>
 
-  <p>Time Zone : SAST (South African Standard Time)</p>
+          <input
+            type="hidden"
+            id="appointment-date"
+            name="appointment-date"
+          >
 
-  <button class="btn btn-light" id="select-appointment" type="button">
-    Select
-  </button>
+          <div
+            id="time-grid"
+            class="time-grid"
+            aria-label="Choose an appointment time"
+          ></div>
 
-  <button class="btn" id="add-appointment" type="button">
-    Add To Appointment
-  </button>
-</div>
-            
+          <input
+            type="hidden"
+            id="appointment-time"
+            name="appointment-time"
+          >
+
+          <p>Time Zone : SAST (South African Standard Time)</p>
+
+          <button
+            class="btn btn-light"
+            id="select-appointment"
+            type="button"
+          >
+            Select
+          </button>
+
+          <button
+            class="btn"
+            id="add-appointment"
+            type="button"
+          >
+            Add To Appointment
+          </button>
+
+        </div>
+
       </section>
 
+      <!-- CUSTOMER INFORMATION -->
+
       <section class="form-section">
+
         <h2>BOOKING INFORMATION / Your Information</h2>
 
         <div class="form-grid">
+
           <div class="field">
+
             <label for="first-name">First name</label>
-            <input id="first-name" name="first-name"
-              autocomplete="given-name" required>
+
+            <input
+              id="first-name"
+              name="first-name"
+              type="text"
+              autocomplete="given-name"
+              required
+            >
+
           </div>
 
           <div class="field">
+
             <label for="last-name">Last name</label>
-            <input id="last-name" name="last-name"
-              autocomplete="family-name" required>
+
+            <input
+              id="last-name"
+              name="last-name"
+              type="text"
+              autocomplete="family-name"
+              required
+            >
+
           </div>
 
           <div class="field">
+
             <label for="phone">Phone (required)</label>
-            <input id="phone" name="phone" type="tel"
-              autocomplete="tel" required>
+
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              autocomplete="tel"
+              required
+            >
+
           </div>
 
           <div class="field">
+
             <label for="email">Email (required)</label>
-            <input id="email" name="email" type="email"
-              autocomplete="email" required>
+
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+            >
+
           </div>
+
         </div>
 
         <p style="margin-top: 24px;">
+
           By booking a massage with D. Matau Spa Massage, you agree
           to our booking time, provide accurate heath information
           and inform us of any medical concerns before your session.
           By checking, you accept terms of service and Privacy policy,
           acknowledging that you have read and understood our policy
           of booking.
+
         </p>
 
         <div class="check-row">
-          <input type="checkbox" id="client-consent"
-            name="client-consent" required>
+
+          <input
+            type="checkbox"
+            id="client-consent"
+            name="client-consent"
+            required
+          >
+
           <label for="client-consent">CLIENT CONSENT</label>
+
         </div>
+
       </section>
 
+      <!-- FULL INTAKE AGREEMENT -->
+
       <section class="form-section">
+
         <h2>Client Full Consent &amp; Intake Agreement</h2>
 
         <p>
@@ -262,13 +427,26 @@
         </p>
 
         <div class="check-row">
-          <input type="checkbox" id="intake-consent"
-            name="intake-consent" required>
-          <label for="intake-consent">Do you agree with this policy?</label>
+
+          <input
+            type="checkbox"
+            id="intake-consent"
+            name="intake-consent"
+            required
+          >
+
+          <label for="intake-consent">
+            Do you agree with this policy?
+          </label>
+
         </div>
+
       </section>
 
+      <!-- PHOTO AND VIDEO CONSENT -->
+
       <section class="form-section">
+
         <h2>Client Photo &amp; Video Recording Consent Form</h2>
 
         <p>
@@ -279,32 +457,106 @@
         </p>
 
         <div class="check-row">
-          <input type="checkbox" id="photo-consent"
-            name="photo-consent">
-          <label for="photo-consent">Do you agree with this policy?</label>
+
+          <input
+            type="checkbox"
+            id="photo-consent"
+            name="photo-consent"
+          >
+
+          <label for="photo-consent">
+            Do you agree with this policy?
+          </label>
+
         </div>
+
       </section>
 
+      <!-- NEW HEALTH AND MASSAGE CONSENT -->
+
+      <section
+        class="form-section health-consent"
+        aria-labelledby="health-consent-heading"
+      >
+
+        <h2 id="health-consent-heading">
+          Client Health &amp; Massage Consent Form
+        </h2>
+
+        <h3>1. Client Health &amp; Disclosure</h3>
+
+        <p>
+          I confirm that I have provided accurate information about my
+          health, allergies, injuries, pregnancy (if applicable), skin
+          sensitivities, and any other relevant medical concerns.
+          I agree to inform my therapist of any changes that may affect
+          my massage session.
+        </p>
+
+        <h3>2. Understanding the Massage</h3>
+
+        <p>
+          I understand that massage is intended to promote relaxation
+          and general well-being. It is not a substitute for medical
+          advice, diagnosis, or treatment. I understand that some
+          massage techniques may cause temporary tenderness or discomfort.
+        </p>
+
+        <div class="check-row">
+
+          <input
+            type="checkbox"
+            id="health-consent"
+            name="health-consent"
+            required
+          >
+
+          <label for="health-consent">
+            I agree with this policy.
+          </label>
+
+        </div>
+
+      </section>
+
+      <!-- EXPERIENCE RATING -->
+
       <section class="form-section">
+
         <div class="field">
+
           <label for="experience-rating">Rate Your Experience</label>
 
-          <select id="experience-rating" name="experience-rating">
+          <select
+            id="experience-rating"
+            name="experience-rating"
+          >
+
             <option value="">Select</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
             <option value="5">5</option>
+
           </select>
+
         </div>
+
       </section>
 
+      <!-- SUBMIT -->
+
       <div style="margin-top: 24px;">
-        <button class="btn" type="submit">Book Your Massage</button>
+
+        <button class="btn" type="submit">
+          Book Your Massage
+        </button>
+
       </div>
 
     </form>
+
   </main>
 
   <footer class="site-footer">
@@ -312,4 +564,4 @@
   </footer>
 
 </body>
-</html> 
+</html>
