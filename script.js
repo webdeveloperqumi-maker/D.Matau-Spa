@@ -445,6 +445,7 @@ function setupBookingForm() {
 
     const clientConsent = document.getElementById("client-consent");
     const intakeConsent = document.getElementById("intake-consent");
+    const healthConsent = document.getElementById("health-consent");
 
     if (clientConsent && !clientConsent.checked) {
       alert("Please accept the client consent.");
@@ -455,6 +456,14 @@ function setupBookingForm() {
     if (intakeConsent && !intakeConsent.checked) {
       alert("Please accept the intake agreement.");
       intakeConsent.focus();
+      return;
+    }
+
+    if (healthConsent && !healthConsent.checked) {
+      alert(
+        "Please read and accept the Client Health & Massage Consent Form."
+      );
+      healthConsent.focus();
       return;
     }
 
@@ -506,10 +515,8 @@ function setupBookingForm() {
       "https://wa.me/" + WHATSAPP_NUMBER +
       "?text=" + encodeURIComponent(message);
 
-    // Display the slip before opening WhatsApp.
     showConfirmationSlip(booking);
 
-    // Navigate to WhatsApp in a new tab/window.
     const fallback = document.getElementById("whatsapp-fallback");
 
     if (fallback) {
@@ -523,7 +530,6 @@ function setupBookingForm() {
       "noopener,noreferrer"
     );
 
-    // Keep the confirmation slip on this page if popups are blocked.
     if (!whatsappWindow) {
       alert(
         "Your appointment request slip is ready. " +
